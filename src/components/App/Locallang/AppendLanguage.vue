@@ -2,24 +2,25 @@
     <base-button
         v-b-tooltip.hover
         size="sm"
-        title="Append a new language for all existing keys"
+        title="Append a new language to all existing keys"
         type="danger"
         @click="showModal"
     >
         <b-icon aria-hidden="true" icon="plus"></b-icon>
         New language
-        <b-modal :id="modalId" v-model="modalActive" :hide-footer="true" cancel-variant="light" lazy size="xl" title="Append a new language for all existing keys" @ok="handleOk">
+        <b-modal :id="modalId" v-model="modalActive" :hide-footer="true" cancel-variant="light" lazy size="xl" title="Append a new language to all existing keys" @ok="handleOk">
             <b-card body-class="p-0" header-class="border-0">
                 <template v-slot:header>
                     <h3 class="mb-0">Overview</h3>
                 </template>
                 <b-overlay :show="showOverlay" rounded="sm">
                     <b-card>
-                        <b-form ref="formAppend" @submit.prevent="handleSubmit">
+                        <b-form ref="formappend" :validated="formIsValid" novalidate @submit.stop.prevent="handleSubmit">
                             <b-input-group class="pb-4" prepend="Language-Codes">
 
                                 <b-form-tags
                                     v-model="newObjectLanguages"
+                                    :state="tagsAreValid"
                                     :tag-validator="tagValidator"
                                     input-id="tags-separators"
                                     invalidTagText="The entered language code was not found"
@@ -31,11 +32,6 @@
                                 >
                                 </b-form-tags>
                             </b-input-group>
-                            <b-alert class="p-2" show size="sm" variant="light">
-                                <span class="alert-icon pl-2"><translation-symbols-icon height="18px" width="18px"></translation-symbols-icon></span>
-                                Find a list of available codes
-                                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>
-                            </b-alert>
                             <hr/>
                             <b-card>
                                 <template #header>
@@ -67,7 +63,7 @@
                 </b-overlay>
 
                 <b-alert show variant="warning">
-                    As soon as the translation-process with selected auto-translation has started, the entries are updated one after the other. This process can take a while. The progress can be seen in the table below
+                    As soon as the translation-process with selected auto-translation has started, the entries are updated one after the other. <br> This process can take a few seconds for large files. <br>The progress can be seen in the table below
                 </b-alert>
                 <b-alert show variant="danger">
                     If individual entries of a language already exist, they will be overwritten!
@@ -125,7 +121,9 @@ export default {
             newObjectXmlSpace: "",
             constructCache: [],
             queueTimer: null,
+            formIsValid: false,
             showOverlay: false,
+            showFormValidation: false,
             xmlSpaceOptions: [
                 {value: "", text: "None"},
                 {value: "preserve", text: "Preserve"},
@@ -142,6 +140,13 @@ export default {
                     (language) => language.key === this.newObjectLanguage
                 ).length > 0
             );
+        },
+        /**
+         * For form-validation display
+         */
+        tagsAreValid() {
+            if (!this.showFormValidation) return null;
+            return this.newObjectLanguages.length > 0
         },
     },
     methods: {
@@ -164,7 +169,7 @@ export default {
                     "key": this.locallang.translationsArray[translationEntryKey].object.translationKey,
                     "translationUid": this.locallang.translationsArray[translationEntryKey].object.uid,
                     "status": "pending",
-                    "statusType": "warning",
+                    "statusType": "danger",
                     "completion": 0,
                     "defaultValue": defaultValue.value,
                     "triggered": false,
@@ -196,32 +201,33 @@ export default {
             this.handleSubmit();
         },
         checkFormValidity() {
-            const valid = this.$refs.formAppend.checkValidity();
-            this.keyIsValid = valid;
+            const valid = (this.$refs.formappend.checkValidity() && this.newObjectLanguages.length > 0);
+            this.showFormValidation = true;
+            this.formIsValid = valid;
             return valid;
         },
         /**
          * Gets called from child to trigger continious call-progression directly after response
          */
         triggerNextCall() {
-            console.log("TRIGGERN");
             for (let queueKey in this.constructCache) {
-                console.log("LOOP");
                 if (this.constructCache[queueKey].status == 'pending') {
-                    console.log("TRY REF:" + queueKey);
-                    console.log(this.$refs);
                     this.$refs['name_' + queueKey][0].onCall(this.newObjectLanguages, this.newObjectXmlSpace, this.newObjectAutoTranslate);
                     return;
                 }
             }
+            // Closing window on complete
+            this.showOverlay = false;
+            this.modalActive = false;
         },
         handleSubmit() {
-            this.showOverlay = true;
-            this.triggerNextCall();
             // Exit when the form isn't valid
             if (!this.checkFormValidity()) {
                 return;
             }
+            this.showOverlay = true;
+            this.triggerNextCall();
+
             this.$nextTick(() => {
                 this.showOverlay = true;
             });
