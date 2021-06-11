@@ -18,7 +18,9 @@
             <b-row>
                 <b-col>
                     <small class="text-white float-right d-flex align-items-center">
-                        <logo-github-icon class="mr-4" height="16px" width="16px"></logo-github-icon>
+                        <a v-b-tooltip.hover :href="getGitUrl" class="text-white" target="_blank" title="Open Github">
+                            <logo-github-icon class="mr-4" height="16px" width="16px"></logo-github-icon>
+                        </a>
                         © Mark Weisgerber - version 10.0.12</small>
                 </b-col>
             </b-row>
@@ -60,6 +62,9 @@ export default {
     computed: {
         selectedLocallang() {
             return this.$store.getters.locallang(this.selectedLocallangUid);
+        },
+        getGitUrl() {
+            return this.$store.getters.config.gitUrl;
         },
     },
     mounted() {

@@ -133,7 +133,7 @@ export default {
                 .dispatch("addTranslationValue", {
                     uid: this.translation.uid,
                     data: JSON.stringify({
-                        value: this.languageToAdd,
+                        value: [this.languageToAdd],
                         autoTranslate: this.autoTranslate,
                         textToTranslate: this.defaultValue.value,
                     }),

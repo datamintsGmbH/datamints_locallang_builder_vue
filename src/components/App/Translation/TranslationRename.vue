@@ -2,17 +2,17 @@
   <span>
     <!-- Rename-Function -->
     <a
-      href="#"
-      :id="renameId"
-      class="cursor-selection"
-      @click="toggleRename"
-      v-b-tooltip.hover
-      title="Rename"
+        :id="renameId"
+        v-b-tooltip.hover
+        class="cursor-selection"
+        href="#"
+        title="Rename"
+        @click="toggleRename"
     >
       {{ translation.translationKey }}
-    </a> <edit-icon width="14px" height="14px" class="hover-show"></edit-icon>
+    </a> <edit-icon class="hover-show" height="14px" width="14px"></edit-icon>
     <span v-if="translation.new" class="badge badge-success badge-pill"
-      >new</span
+    >new</span
     >
     <b-popover :target="renameId" triggers="focus">
       <template #title>
@@ -21,25 +21,27 @@
       <b-overlay :show="showOverlay" rounded="sm">
         <b-form-group label="Enter new key name">
           <b-form-input
-            type="search"
-            v-model="newRenameKey"
-            :state="state"
+              v-model="newRenameKey"
+              :state="state"
+              autofocus
+              spellcheck="false"
+              type="search"
           ></b-form-input>
         </b-form-group>
 
-        <b-alert show class="small">
-          <strong>Renaming</strong><br />
+        <b-alert class="small" show>
+          <strong>Renaming</strong><br/>
           From <strong>{{ translation.translationKey }}</strong
-          ><br />
+        ><br/>
           To <strong>{{ newRenameKey }}</strong>
         </b-alert>
-        <hr />
+        <hr/>
         <span class="float-right mb-2">
           <b-button
-            @click="onRename"
-            size="sm"
-            variant="success"
-            :disabled="!state"
+              :disabled="!state"
+              size="sm"
+              variant="success"
+              @click="onRename"
           >
             Ok
             <b-icon class="ml-2" icon="check-circle" variant="white"></b-icon>
@@ -52,53 +54,55 @@
 
 <script>
 export default {
-  name: "TranslationRename",
-  props: ["translation"],
-  computed: {
-    renameId() {
-      return "rename-" + this.translation.uid;
+    name: "TranslationRename",
+    props: ["translation"],
+    computed: {
+        renameId() {
+            return "rename-" + this.translation.uid;
+        },
+        state() {
+            // Only allow a-Z & 0-9 & Underscore, Dot and Dash
+            return this.newRenameKey.match(/[^A-Za-z0-9_.-]+/) === null;
+        },
     },
-    state() {
-      // Only allow a-Z & 0-9 & Underscore, Dot and Dash
-      return this.newRenameKey.match(/[^A-Za-z0-9_.-]+/) === null;
+    data() {
+        return {
+            isRenaming: false,
+            newRenameKey: "",
+            showOverlay: false,
+        };
     },
-  },
-  data() {
-    return {
-      isRenaming: false,
-      newRenameKey: "",
-      showOverlay: false,
-    };
-  },
-  methods: {
-    onRename() {
-      this.showOverlay = true;
-      this.$store
-        .dispatch("updateTranslation", {
-          uid: this.translation.uid,
-          data: JSON.stringify({
-            translationKey: this.newRenameKey,
-          }),
-        })
-        .then(() => {
-          this.showOverlay = false;
-        });
+    methods: {
+        onRename() {
+            this.showOverlay = true;
+            this.$store
+                .dispatch("updateTranslation", {
+                    uid: this.translation.uid,
+                    data: JSON.stringify({
+                        translationKey: this.newRenameKey,
+                    }),
+                })
+                .then(() => {
+                    this.showOverlay = false;
+                });
+        },
+        toggleRename(e) {
+            this.newRenameKey = this.translation.translationKey;
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        },
     },
-    toggleRename(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    },
-  },
 };
 </script>
 <style lang="scss" scoped>
 // Display icon on mouse over
 a:hover + .hover-show {
-  opacity: 1;
+    opacity: 1;
 }
+
 .hover-show {
-  opacity: 0;
-  transition: 0.4s opacity;
+    opacity: 0;
+    transition: 0.4s opacity;
 }
 </style>

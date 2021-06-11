@@ -135,8 +135,7 @@ const actions = {
         commit('UPDATE_EXTENSIONS', response.data.data);
 
 
-      })
-      .catch(catchFallback)
+      }).catch(catchFallback)
   },
   async getLocallangByUid(context, payload) {
     await axios.get(proxy.apiPath('api-locallang-getby-uid', [payload.uid]))
@@ -150,7 +149,7 @@ const actions = {
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('CLEAR_EXTENSIONS');
-      });
+      }).catch(catchFallback);
 
   },
   async addTranslationValue(context, payload) {
@@ -158,14 +157,14 @@ const actions = {
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('ADD_TRANSLATION_VALUE', response.data);
-      });
+      }).catch(catchFallback);
   },
   async addTranslation(context, payload) {
     await axios.post(proxy.apiPath('api-translation-add', [payload.uid]), new URLSearchParams(payload))
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('ADD_TRANSLATION', response.data);
-      });
+      }).catch(catchFallback);
   },
   async deleteTranslationValue(context, payload) {
     await axios.post(proxy.apiPath('api-translation-deletetranslationvalue', [payload.uid]))
@@ -179,28 +178,28 @@ const actions = {
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('UPDATE_TRANSLATION_VALUE', response.data.data);
-      });
+      }).catch(catchFallback);
   },
   async updateTranslation(context, payload) {
     await axios.post(proxy.apiPath('api-translation-update', [payload.uid]), new URLSearchParams(payload))
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('UPDATE_TRANSLATION', response.data.data);
-      });
+      }).catch(catchFallback);
   },
   async exportLocallang(context, payload) {
     await axios.post(proxy.apiPath('api-locallang-export', [payload.uid]), new URLSearchParams(payload))
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('LOCALLANG_EXPORT', response.data.data);
-      });
+      }).catch(catchFallback);
   },
   async autoTranslate(context, payload) {
     await axios.get(proxy.apiPath('api-autotranslate', [payload.uid, payload.textToTranslate]))
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('UPDATE_TRANSLATION_VALUE', response.data.data);
-      });
+      }).catch(catchFallback);
   },
 }
 

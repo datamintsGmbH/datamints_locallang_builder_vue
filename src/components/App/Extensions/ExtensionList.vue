@@ -64,7 +64,7 @@
 
                 <b-nav class="navbar-nav mb-md-3">
                     <b-nav-item
-                        href="https://www.datamints.com" target="_blank"
+                        :href="getDocumentationUrl" target="_blank"
                     >
                         <i class="ni ni-spaceship"></i>
                         <b-nav-text class="p-0">Getting started</b-nav-text>
@@ -101,6 +101,9 @@ export default {
     computed: {
         extensions() {
             return this.$store.getters.extensions;
+        },
+        getDocumentationUrl() {
+            return this.$store.getters.config.documentationUrl;
         },
     },
     data() {
