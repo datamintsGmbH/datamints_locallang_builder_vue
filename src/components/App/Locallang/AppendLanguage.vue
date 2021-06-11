@@ -11,7 +11,7 @@
         <b-modal :id="modalId" v-model="modalActive" :hide-footer="true" cancel-variant="light" lazy size="xl" title="Append a new language to all existing keys" @ok="handleOk">
             <b-card body-class="p-0" header-class="border-0">
                 <template v-slot:header>
-                    <h3 class="mb-0">Overview</h3>
+                    <h3 class="mb-0">Configuration</h3>
                 </template>
                 <b-overlay :show="showOverlay" rounded="sm">
                     <b-card>
