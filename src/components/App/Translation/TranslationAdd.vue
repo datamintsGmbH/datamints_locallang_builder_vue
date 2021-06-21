@@ -27,7 +27,7 @@
                 <b-row>
                     <b-col lg="8">
                         <b-card header="Configuration">
-                            <b-form ref="form" @submit.prevent="handleSubmit">
+                            <b-form ref="form" :validated="formIsValid" novalidate @submit.stop.prevent="handleSubmit">
                                 <!-- Input: Key name -->
                                 <b-form-group label="Enter key name">
                                     <b-form-input
@@ -38,24 +38,29 @@
                                         trim
                                     ></b-form-input>
                                     <b-form-invalid-feedback id="input-live-feedback">
-                                        The entered key does already exist
+                                        The entered key is not valid or already existing
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                                 <!-- Input: Default Translation -->
                                 <b-form-group label="Enter default value for 'EN'">
                                     <b-form-textarea
                                         v-model="newObjectValue"
+                                        :state="valueIsValid"
                                         max-rows="10"
                                         placeholder="Enter something..."
                                         required
                                         rows="3"
                                         spellcheck="false"
                                     ></b-form-textarea>
+                                    <b-form-invalid-feedback>
+                                        No value given
+                                    </b-form-invalid-feedback>
                                 </b-form-group>
                                 <b-input-group class="pb-4" prepend="Language-Codes">
 
                                     <b-form-tags
                                         v-model="newObjectLanguages"
+                                        :state="tagsAreValid"
                                         :tag-validator="tagValidator"
                                         input-id="tags-separators"
                                         invalidTagText="The entered language code was not found"
@@ -155,7 +160,7 @@
                     </b-col>
                     <b-col lg="4">
                         <b-card header="Languages to add">
-                            <b-card v-if="newObjectLanguages.length > 0" header="List">
+                            <b-card v-if="newObjectLanguages.length > 0">
                                 <ol>
                                     <li
                                         v-for="(newObjectLanguage, key) in newObjectLanguages"
@@ -192,13 +197,33 @@ export default {
         languages() {
             return this.$store.getters.languages;
         },
+        /**
+         * For form-validation display
+         */
         keyIsValid() {
-            if (this.newObjectKey.length === 0) return null;
+            if (!this.showFormValidation) return null;
+            if (this.newObjectKey.length === 0) {
+                return false;
+            }
             return (
                 this.locallang.translationsArray.filter(
                     (translation) => translation.key === this.newObjectKey
                 ).length === 0
             );
+        },
+        /**
+         * For form-validation display
+         */
+        valueIsValid() {
+            if (!this.showFormValidation) return null;
+            return this.newObjectValue.length > 0
+        },
+        /**
+         * For form-validation display
+         */
+        tagsAreValid() {
+            if (!this.showFormValidation) return null;
+            return this.newObjectLanguages.length > 0
         },
         hasAtLeastOneLanguageInUse() {
             return this.languagesInUse().length > 0;
@@ -218,6 +243,8 @@ export default {
             translationToAdd: "",
             autoTranslate: true,
             modalActive: false,
+            formIsValid: false,
+            showFormValidation: false,
             showOverlay: false,
             modalId: "modal-add-" + this.locallang.uid,
             addCurrentLanguagesButtonId:
@@ -229,6 +256,9 @@ export default {
         };
     },
     watch: {
+        /**
+         * Watches the var to lowercase it on change
+         */
         translationToAdd(newValue, oldValue) {
             if (newValue !== oldValue) {
                 this.translationToAdd = this.translationToAdd.toLowerCase();
@@ -236,14 +266,32 @@ export default {
         },
     },
     methods: {
+        /**
+         * onClick on the action-button
+         */
+        showModal() {
+            this.modalActive = true;
+        },
+        /**
+         * Gets an icon for the given languageCode
+         */
         getLanguageIcon(languageCode) {
             return utility.getLanguageSvg(languageCode);
         },
+        /**
+         * Sets the states for the different tags
+         * @param valid
+         * @param invalid
+         * @param duplicate
+         */
         onTagState(valid, invalid, duplicate) {
             this.validTags = valid;
             this.invalidTags = invalid;
             this.duplicateTags = duplicate;
         },
+        /**
+         * Validates a tag on the fly while entering. Otherwise its not possible to add a tag
+         */
         tagValidator(tag) {
             return (
                 this.languages.filter((language) => language.key === tag).length > 0
@@ -258,15 +306,19 @@ export default {
             }
             return "Unknown";
         },
-        showModal() {
-            this.modalActive = true;
-        },
+        /**
+         * Gets called from the modal component when clicked on "OK". The default behaviour gets prevented and additional validation gets triggered. The window closes when the api-call is completed.
+         * The cancel-action is not affected by this logic
+         */
         handleOk(bvModalEvt) {
             // Prevent modal from closing
             bvModalEvt.preventDefault();
             // Trigger submit handler
             this.handleSubmit();
         },
+        /**
+         * Adds language after click on the "existing language" button
+         */
         appendLanguage(language) {
             if (language === undefined) {
                 // In this case we add all found languages. Dont know why but filter or array concat didnt work...
@@ -278,11 +330,18 @@ export default {
                 this.newObjectLanguages.push(language);
             }
         },
+        /**
+         * Called before executing the submit action and triggers the form-validation. Additionally we check, if the tags are valid
+         */
         checkFormValidity() {
-            const valid = this.$refs.form.checkValidity();
-            this.keyIsValid = valid;
-            return valid;
+            const valid = (this.$refs.form.checkValidity() && this.newObjectLanguages.length > 0); // dont know why the form does not contain validation for the tag-component. Its displayed but not mentioned here
+            this.showFormValidation = true;
+            this.formIsValid = valid;
+            return (valid);
         },
+        /**
+         * Executes submit action. The form is getting validated and shows errors if something isnt correct. Otherwise the API gets called. After the call, the window disappears.
+         */
         handleSubmit() {
             // Exit when the form isn't valid
             if (!this.checkFormValidity()) {

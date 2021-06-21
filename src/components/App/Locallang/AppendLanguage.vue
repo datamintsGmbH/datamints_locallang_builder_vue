@@ -1,168 +1,238 @@
 <template>
-  <base-button
-    title="Add a new language for all entries"
-    type="danger"
-    size="sm"
-    @click="showModal"
-    v-b-tooltip.hover
-  >
-    <b-icon icon="flag" aria-hidden="true"></b-icon> Add language
-    <b-modal lazy :id="modalId" title="Append new language" v-model="modalActive" @ok="handleOk" size="xl" cancel-variant="light" :hide-footer="true">
-      <b-card body-class="p-0" header-class="border-0">
-        <template v-slot:header>
-            <h3 class="mb-0">Overview</h3>
-        </template>
-        <b-card>
-          <form ref="form" @submit.stop.prevent="handleSubmit">
-            <b-form-group label="Enter language code">
-              <b-input-group label="Enter language code">
-                <b-input-group-prepend is-text>
-                  <flag-icon width="15px" height="15px" class="text-dark"></flag-icon>
-                </b-input-group-prepend>
-
-                <b-form-input
-                  id="input-add" 
-                  type="search"
-                  v-model="newObjectLanguage"
-                  class="text-uppercase"
-                  :state="languageState"
-
-                ></b-form-input>
-
-                <template #append>
-                  <b-button  variant="success" :disabled="!languageState" @click="addLanguage">
-                    <file-add-icon width="14px" height="14px"></file-add-icon> Add
-                  </b-button>
+    <base-button
+        v-b-tooltip.hover
+        size="sm"
+        title="Append a new language to all existing keys"
+        type="danger"
+        @click="showModal"
+    >
+        <b-icon aria-hidden="true" icon="plus"></b-icon>
+        New language
+        <b-modal :id="modalId" v-model="modalActive" :hide-footer="true" cancel-variant="light" lazy size="xl" title="Append a new language to all existing keys" @ok="handleOk">
+            <b-card body-class="p-0" header-class="border-0">
+                <template v-slot:header>
+                    <h3 class="mb-0">Configuration</h3>
                 </template>
-              </b-input-group>
-            </b-form-group>
-          </form>
-        </b-card>
-        <el-table class="table-responsive table-flush"
-                header-row-class-name="thead-light"
-                :data="locallang.translationsArray">
-          <el-table-column label="Key"
-                            min-width="310px"
-                            prop="object.translationKey"
-                            sortable>
-              <template v-slot="{row}">
-                  <b-media no-body class="align-items-center">
-                      <key-icon class="text-primary" width="16px" height="16px"></key-icon>
-                      
-                      <b-media-body>
-                          <span class="font-weight-600 name ml-2 mb-0 text-sm">{{row.object.translationKey}}</span>
-                      </b-media-body>
-                  </b-media>
-              </template>
-          </el-table-column>
+                <b-overlay :show="showOverlay" rounded="sm">
+                    <b-card>
+                        <b-form ref="formappend" :validated="formIsValid" novalidate @submit.stop.prevent="handleSubmit">
+                            <b-input-group class="pb-4" prepend="Language-Codes">
 
-          <el-table-column label="Status"
-                            min-width="170px"
-                            prop="status"
-                            sortable>
-              <template v-slot="{row}">
-                  <badge class="badge-dot mr-4" type="">
-                      <i :class="`bg-${row.statusType}`"></i>
-                      <span class="status">{{row.status}}</span>
-                  </badge>
-              </template>
-          </el-table-column>
+                                <b-form-tags
+                                    v-model="newObjectLanguages"
+                                    :state="tagsAreValid"
+                                    :tag-validator="tagValidator"
+                                    input-id="tags-separators"
+                                    invalidTagText="The entered language code was not found"
+                                    placeholder="Separate by space, comma or semicolon"
+                                    remove-on-delete
+                                    separator=" ,;"
+                                    tag-variant="primary"
+                                    @tag-state="onTagState"
+                                >
+                                </b-form-tags>
+                            </b-input-group>
+                            <hr/>
+                            <b-card>
+                                <template #header>
+                                    <settings-gear-icon class="pr-2" height="23px" width="23px"></settings-gear-icon>
+                                    Options
+                                </template>
+                                <b-row>
+                                    <b-col cols="6">
+                                        <b-form-group label="Auto-Translate">
+                                            <base-switch v-model="newObjectAutoTranslate" name="autotranslate"/>
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col cols="6">
+                                        <b-form-group label="XML-Space">
+                                            <b-form-select v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
+                                        </b-form-group>
+                                    </b-col>
+                                </b-row>
+                            </b-card>
+                            <b-row>
+                                <b-col>
+                                    <div class="d-flex justify-content-end">
+                                        <b-button class="pull-right" type="submit" variant="success">Submit</b-button>
+                                    </div>
+                                </b-col>
+                            </b-row>
+                        </b-form>
+                    </b-card>
+                </b-overlay>
 
-          <el-table-column label="Completion"
-                            prop="completion"
-                            min-width="240px"
-                            sortable>
-              <template v-slot="{row}">
-                  <div class="d-flex align-items-center">
-                      <span class="completion mr-2">{{row.completion}}%</span>
-                      <div>
-                          <base-progress :type="row.statusType" :value="row.completion"/>
-                      </div>
-                  </div>
-              </template>
-          </el-table-column>
-            
-        </el-table>
-      </b-card>
-    </b-modal>
-  </base-button>
-    
+                <b-alert show variant="warning">
+                    As soon as the translation-process with selected auto-translation has started, the entries are updated one after the other. <br> This process can take a few seconds for large files. <br>The progress can be seen in the table below
+                </b-alert>
+                <b-alert show variant="danger">
+                    If individual entries of a language already exist, they will be overwritten!
+                </b-alert>
+
+                <table aria-colcount="3" class="table b-table" role="table">
+                    <thead class="thead-light" role="rowgroup">
+                    <tr class="" role="row">
+                        <th aria-colindex="1" class="" role="columnheader" scope="col">
+                            <div>Key</div>
+                        </th>
+                        <th aria-colindex="2" class="" role="columnheader" scope="col">
+                            <div>Status</div>
+                        </th>
+                        <th aria-colindex="3" class="" role="columnheader" scope="col">
+                            <div>Progress</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                    <append-language-key v-for="(translation, index) in constructCache" :key="index" :ref="'name_' + index" :translationDTO="translation"></append-language-key>
+
+
+                    </tbody>
+                </table>
+            </b-card>
+        </b-modal>
+    </base-button>
+
 </template>
 <script>
-import {
-  Table,
-  TableColumn,
-  DropdownMenu,
-  DropdownItem,
-  Dropdown,
-} from "element-ui";
+import AppendLanguageKey from "./AppendLanguageKey";
+
 export default {
-  name: "append-language",
-  components: {
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Dropdown.name]: Dropdown,
-    [DropdownItem.name]: DropdownItem,
-    [DropdownMenu.name]: DropdownMenu,
-  },
-  props: {
-    locallang: {
-      type: Object,
+    name: "append-language",
+    components: {
+        AppendLanguageKey
     },
-    itemLimit: {
-      type: Number,
-      default: 9,
+    props: {
+        locallang: {
+            type: Object,
+        },
+        itemLimit: {
+            type: Number,
+            default: 9,
+        },
     },
-  },
-  data() {
-    return {
-      modalActive: false,
-      modalId: "modal-append-" + this.locallang.uid,
-      currentPage: 1,
-      newObjectLanguage: "",
-    };
-  },
-  computed: {
-    languages() {
-      return this.$store.getters.languages;
+    data() {
+        return {
+            modalActive: false,
+            modalId: "modal-append-" + this.locallang.uid,
+            currentPage: 1,
+            newObjectLanguages: [],
+            newObjectAutoTranslate: true,
+            newObjectXmlSpace: "",
+            constructCache: [],
+            queueTimer: null,
+            formIsValid: false,
+            showOverlay: false,
+            showFormValidation: false,
+            xmlSpaceOptions: [
+                {value: "", text: "None"},
+                {value: "preserve", text: "Preserve"},
+            ],
+        };
     },
-    languageState() {
-      return (
-        this.languages.filter(
-          (language) => language.key === this.newObjectLanguage
-        ).length > 0
-      );
+    computed: {
+        languages() {
+            return this.$store.getters.languages;
+        },
+        languageState() {
+            return (
+                this.languages.filter(
+                    (language) => language.key === this.newObjectLanguage
+                ).length > 0
+            );
+        },
+        /**
+         * For form-validation display
+         */
+        tagsAreValid() {
+            if (!this.showFormValidation) return null;
+            return this.newObjectLanguages.length > 0
+        },
     },
-  },
-  methods: {
-    showModal() {
-      this.modalActive = true;
+    methods: {
+        showModal() {
+            this.constructCache = this.constructTableObject();
+            this.modalActive = true;
+
+        },
+        onTagState(valid, invalid, duplicate) {
+            this.validTags = valid;
+            this.invalidTags = invalid;
+            this.duplicateTags = duplicate;
+        },
+        constructTableObject() {
+            var tableObject = [];
+
+            for (let translationEntryKey in this.locallang.translationsArray) {
+                let defaultValue = this.getDefaultValue(this.locallang.translationsArray[translationEntryKey].object)
+                tableObject.push({
+                    "key": this.locallang.translationsArray[translationEntryKey].object.translationKey,
+                    "translationUid": this.locallang.translationsArray[translationEntryKey].object.uid,
+                    "status": "pending",
+                    "statusType": "danger",
+                    "completion": 0,
+                    "defaultValue": defaultValue.value,
+                    "triggered": false,
+                    "doneCallback": () => {
+                        this.triggerNextCall();
+                    }
+                });
+
+            }
+            return tableObject;
+        },
+        getDefaultValue: function (translation) {
+            for (let translationValueKey in translation.translationValues) {
+                if (translation.translationValues[translationValueKey].ident == "en") {
+                    return translation.translationValues[translationValueKey];
+                }
+            }
+            return null;
+        },
+        tagValidator(tag) {
+            return (
+                this.languages.filter((language) => language.key === tag).length > 0
+            );
+        },
+        handleOk(bvModalEvt) {
+            // Prevent modal from closing
+            bvModalEvt.preventDefault();
+            // Trigger submit handler
+            this.handleSubmit();
+        },
+        checkFormValidity() {
+            const valid = (this.$refs.formappend.checkValidity() && this.newObjectLanguages.length > 0);
+            this.showFormValidation = true;
+            this.formIsValid = valid;
+            return valid;
+        },
+        /**
+         * Gets called from child to trigger continious call-progression directly after response
+         */
+        triggerNextCall() {
+            for (let queueKey in this.constructCache) {
+                if (this.constructCache[queueKey].status == 'pending') {
+                    this.$refs['name_' + queueKey][0].onCall(this.newObjectLanguages, this.newObjectXmlSpace, this.newObjectAutoTranslate);
+                    return;
+                }
+            }
+            // Closing window on complete
+            this.showOverlay = false;
+            this.modalActive = false;
+        },
+        handleSubmit() {
+            // Exit when the form isn't valid
+            if (!this.checkFormValidity()) {
+                return;
+            }
+            this.showOverlay = true;
+            this.triggerNextCall();
+
+            this.$nextTick(() => {
+                this.showOverlay = true;
+            });
+
+        },
     },
-    handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      // Trigger submit handler
-      this.handleSubmit();
-    },
-    handleSubmit() {
-      this.$nextTick(() => {
-        this.showOverlay = true;
-      });
-      this.$store
-        .dispatch("exportLocallang", {
-          uid: this.locallang.uid,
-          data: JSON.stringify({
-            triggerBackup: this.triggerBackup,
-            selectedFiletype: this.selectedFiletype,
-            triggerCache: this.triggerCache,
-            selectedTarget: this.selectedTarget,
-          }),
-        })
-        .then(() => {
-          this.showOverlay = false;
-          this.modalActive = false;
-        });
-    },
-  },
 };
 </script>

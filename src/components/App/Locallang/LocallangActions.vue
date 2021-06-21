@@ -6,6 +6,8 @@
             :locallang="locallang"
             :rerender="rerender"
         />
+        <!-- Add new language -->
+        <append-language :locallang="locallang"/>
         <!-- Expand all button -->
         <base-button size="sm"
                      type="primary"
@@ -24,8 +26,7 @@
             <b-icon aria-hidden="true" icon="arrows-collapse"></b-icon>
             Collapse all
         </base-button>
-        <!-- Add new language -->
-        <append-language :locallang="locallang"/>
+
         <!-- Export -->
         <locallang-export :locallang="locallang"/>
 
