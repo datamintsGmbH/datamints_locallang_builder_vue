@@ -99,7 +99,7 @@ export default {
                     value: "overwrite",
                 },
                 {
-                    text: "Fileadmin",
+                    text: "Custom path",
                     value: "fileadmin",
                 },
             ],

@@ -112,10 +112,11 @@
                     </b-col>
 
                     <!-- Translation-Actions -->
-                    <b-col v-if="!isDefault && isAllowedProvider" align-self="center" class="d-none d-md-block" md="1">
+                    <b-col v-if="!isDefault" align-self="center" class="d-none d-md-block" md="1">
                         <b-button
                             v-if="!isAutoTranslating"
                             v-b-tooltip.hover
+                            :disabled="!isAllowedProvider"
                             :title="getProviderLabel"
                             class="text-nowrap"
                             size="sm"
@@ -189,6 +190,7 @@ import * as utility from "../../../scripts/Utility";
 export default {
     name: "TranslationValue",
     props: ["translationValue", "defaultValue", "rerender"],
+
     data() {
         return {
             changed: false,
@@ -219,6 +221,9 @@ export default {
             return this.$store.getters.config.provider.length > 0;
         },
         getProviderLabel: function () {
+            if (!this.isAllowedProvider) {
+                return "No active configuration for the translation feature was found. Please define one in Typoscript so that this feature can be used.";
+            }
             return "Autotranslate with " + this.$store.getters.config.provider;
         },
         tstampColor: function () {

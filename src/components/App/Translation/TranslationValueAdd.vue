@@ -31,10 +31,11 @@
                         </b-input-group>
                         <div class="py-3">
                             <b-row>
-                                <b-col cols="8">Auto-Translate</b-col>
-                                <b-col cols="4">
+                                <b-col cols="6">Auto-Translate</b-col>
+                                <b-col cols="6">
                                     <div class="text-right">
-                                        <base-switch v-model="autoTranslate" name="autotranslate"/>
+                                        <base-switch v-if="isAllowedProvider" v-model="autoTranslate" name="autotranslate"/>
+                                        <div v-else class="text-danger">No translation provider defined</div>
                                     </div>
                                 </b-col>
                             </b-row>
@@ -58,6 +59,12 @@
 export default {
     name: "TranslationValueAdd",
     props: ["translation", "rerender", "identList", "defaultValue"],
+    mounted() {
+        // switch the flag to false, when there is no auto-translate provider configured
+        if (!this.isAllowedProvider) {
+            this.autoTranslate = false;
+        }
+    },
     computed: {
         /**
          * State for Validation if the value is found in language-store and its not already existing for this translation
@@ -96,6 +103,9 @@ export default {
          */
         languages() {
             return this.$store.getters.languages;
+        },
+        isAllowedProvider: function () {
+            return this.$store.getters.config.provider.length > 0;
         },
     },
     data() {

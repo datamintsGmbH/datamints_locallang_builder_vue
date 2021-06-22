@@ -27,6 +27,7 @@
                     </b-col>
                 </b-row>
                 <!-- Card stats -->
+                <!--
                 <b-row>
                     <b-col md="6" xl="3">
                         <stats-card icon="ni ni-active-40"
@@ -58,7 +59,7 @@
                                     type="gradient-info">
                         </stats-card>
                     </b-col>
-                </b-row>
+             </b-row>-->
             </b-container>
         </div>
     </div>

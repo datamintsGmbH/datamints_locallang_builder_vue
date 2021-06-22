@@ -41,7 +41,9 @@
                                 <b-row>
                                     <b-col cols="6">
                                         <b-form-group label="Auto-Translate">
-                                            <base-switch v-model="newObjectAutoTranslate" name="autotranslate"/>
+                                            <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
+                                            <div v-else class="text-danger">No translation provider defined</div>
+
                                         </b-form-group>
                                     </b-col>
                                     <b-col cols="6">
@@ -66,7 +68,7 @@
                     As soon as the translation-process with selected auto-translation has started, the entries are updated one after the other. <br> This process can take a few seconds for large files. <br>The progress can be seen in the table below
                 </b-alert>
                 <b-alert show variant="danger">
-                    If individual entries of a language already exist, they will be overwritten!
+                    Please be sure that if individual entries of the specified language already exist, they will be added without a check if they already existed before.
                 </b-alert>
 
                 <table aria-colcount="3" class="table b-table" role="table">
@@ -99,6 +101,12 @@ import AppendLanguageKey from "./AppendLanguageKey";
 
 export default {
     name: "append-language",
+    mounted() {
+        // switch the flag to false, when there is no auto-translate provider configured
+        if (!this.isAllowedProvider) {
+            this.newObjectAutoTranslate = false;
+        }
+    },
     components: {
         AppendLanguageKey
     },
@@ -147,6 +155,9 @@ export default {
         tagsAreValid() {
             if (!this.showFormValidation) return null;
             return this.newObjectLanguages.length > 0
+        },
+        isAllowedProvider: function () {
+            return this.$store.getters.config.provider.length > 0;
         },
     },
     methods: {

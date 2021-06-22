@@ -36,7 +36,7 @@ export default {
     computed: {
         completedPercentage() {
             return Math.round(this.completedLanguages * 100 / this.languagesToAdd);
-        }
+        },
     },
     methods: {
         callApi: function (newObjectLanguages, newObjectXmlSpace, newObjectAutoTranslate) {

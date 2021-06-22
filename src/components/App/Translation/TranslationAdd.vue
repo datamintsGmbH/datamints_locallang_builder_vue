@@ -11,14 +11,14 @@
             :hide-footer="showOverlay"
             cancel-variant="light"
             size="xl"
-            title="Add new value"
+            title="Add new key"
             @ok="handleOk"
         >
             <b-overlay :show="showOverlay" rounded="sm">
                 <b-row>
                     <b-col>
                         <p>
-                            Append another value to the file
+                            Append another key to the file
                             <strong>{{ locallang.filename }}</strong>
                         </p>
                         <hr/>
@@ -56,7 +56,7 @@
                                         No value given
                                     </b-form-invalid-feedback>
                                 </b-form-group>
-                                <b-input-group class="pb-4" prepend="Language-Codes">
+                                <b-input-group class="pb-4" prepend="Languages to add">
 
                                     <b-form-tags
                                         v-model="newObjectLanguages"
@@ -140,7 +140,9 @@
                                     <b-row>
                                         <b-col cols="6">
                                             <b-form-group label="Auto-Translate">
-                                                <base-switch v-model="newObjectAutoTranslate" name="autotranslate"/>
+                                                <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
+                                                <div v-else class="text-danger">No translation provider defined</div>
+
                                             </b-form-group>
                                         </b-col>
                                         <b-col cols="6">
@@ -193,9 +195,18 @@ import * as utility from "../../../scripts/Utility";
 export default {
     name: "TranslationAdd",
     props: ["locallang", "languagesInUse", "rerender"],
+    mounted() {
+        // switch the flag to false, when there is no auto-translate provider configured
+        if (!this.isAllowedProvider) {
+            this.newObjectAutoTranslate = false;
+        }
+    },
     computed: {
         languages() {
             return this.$store.getters.languages;
+        },
+        isAllowedProvider: function () {
+            return this.$store.getters.config.provider.length > 0;
         },
         /**
          * For form-validation display
