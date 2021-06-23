@@ -6,13 +6,13 @@
 
         <div class="main-content">
             <splash-screen/>
-
-            <dashboard-content :locallang="selectedLocallang"></dashboard-content>
-
             <b-alert v-if="error" show variant="danger">
                 <h4 class="alert-heading">Critical error</h4>
-                <p>An critical error occured. Please reload this browser tab.</p>
+                <p>A fatal error has occurred. Please reload this browser tab and submit a new issue: <a href="https://github.com/datamintsGmbH/datamints_locallang_builder/issues" target="_blank">here</a>.</p>
             </b-alert>
+            <dashboard-content :locallang="selectedLocallang"></dashboard-content>
+
+
         </div>
         <footer class="footer bg-gradient-primary p-2">
             <b-row>
