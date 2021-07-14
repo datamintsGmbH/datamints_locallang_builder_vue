@@ -175,19 +175,22 @@ export default {
             var tableObject = [];
 
             for (let translationEntryKey in this.locallang.translationsArray) {
-                let defaultValue = this.getDefaultValue(this.locallang.translationsArray[translationEntryKey].object)
-                tableObject.push({
-                    "key": this.locallang.translationsArray[translationEntryKey].object.translationKey,
-                    "translationUid": this.locallang.translationsArray[translationEntryKey].object.uid,
-                    "status": "pending",
-                    "statusType": "danger",
-                    "completion": 0,
-                    "defaultValue": defaultValue.value,
-                    "triggered": false,
-                    "doneCallback": () => {
-                        this.triggerNextCall();
-                    }
-                });
+                let defaultValue = this.getDefaultValue(this.locallang.translationsArray[translationEntryKey].object);
+                // security check, if theres a custom translation without default translation, e.g. theres the key "test" in "de" but not in "en":
+                if (defaultValue != null) {
+                    tableObject.push({
+                        "key": this.locallang.translationsArray[translationEntryKey].object.translationKey,
+                        "translationUid": this.locallang.translationsArray[translationEntryKey].object.uid,
+                        "status": "pending",
+                        "statusType": "danger",
+                        "completion": 0,
+                        "defaultValue": defaultValue.value,
+                        "triggered": false,
+                        "doneCallback": () => {
+                            this.triggerNextCall();
+                        }
+                    });
+                }
 
             }
             return tableObject;

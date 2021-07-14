@@ -95,6 +95,7 @@
                                 <b-icon icon="clipboard"></b-icon>
                             </b-input-group-prepend>
                             <b-form-textarea
+                                v-if="defaultValue"
                                 id="textarea-default"
                                 :value="defaultValue.value"
                                 disabled
@@ -104,6 +105,7 @@
                                 spellcheck="false"
                             >
                             </b-form-textarea>
+                            <span v-else>There is no default-value for "en"</span>
                         </b-input-group>
                     </b-col>
                     <!-- Display comment-section for default-translation-value -->
@@ -261,8 +263,10 @@ export default {
             this.translationValue.comment = val;
         },
         onChange: function (val) {
-            this.translationValue.value = val; // todo fix this. Dont modify props!
-            this.startSaving();
+            if (this.translationValue != null) {
+                this.translationValue.value = val; // todo fix this. Dont modify props!
+                this.startSaving();
+            }
         },
         startSaving() {
             this.changed = true;

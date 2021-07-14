@@ -38,7 +38,7 @@ import SplashScreen from "./components/App/SplashScreen.vue";
 import ExtensionList from "./components/App/Extensions/ExtensionList.vue";
 import DashboardContent from "./components/App/DashboardContent.vue";
 
-//Vue.config.devtools = true;
+Vue.config.devtools = true;
 Vue.use(BVToastPlugin);
 
 export default {
