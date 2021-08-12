@@ -2,7 +2,7 @@
     <div>
         <b-list-group>
             <b-list-group-item class="list-group-hover position-relative">
-                <div v-show="savingTime" class="position-absolute save-overlay text-center w-100 bg-success">
+                <div v-show="savingTime" class="position-absolute save-overlay bg-light p-1">
                     <!-- Remaining Time -->
                     Auto-Saving in
                     <strong>{{ remainingSaveTime }} seconds</strong>
@@ -362,7 +362,7 @@ export default {
 
 .save-overlay {
     left: 0;
-    top: -8px;
+    bottom: 0px;
 }
 
 textarea:disabled {
