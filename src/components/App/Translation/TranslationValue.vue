@@ -174,8 +174,6 @@
                     </template>
 
 
-                    <b-dropdown-item href="#" @click="apiAutoTranslate">{{ getProviderLabel }}</b-dropdown-item>
-                    <b-dropdown-divider></b-dropdown-divider>
                     <TranslationValueDelete :rerender="rerender" :translationValue="translationValue"/>
                 </b-dropdown>
             </b-list-group-item>
