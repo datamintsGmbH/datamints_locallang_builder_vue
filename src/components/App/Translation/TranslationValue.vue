@@ -147,7 +147,6 @@
                             </b-input-group-prepend>
                             <b-form-textarea
                                 id="textarea"
-                                :disabled="isAutoTranslating"
                                 :value="ownValue"
                                 max-rows="10"
                                 placeholder="Enter something..."
