@@ -1,57 +1,53 @@
 <template>
     <div>
-        <b-list-group-item class="list-group-hover">
-            <b-row>
-                <b-col cols="3">
-                    <!-- After clicking on the button, a popover with a form appears -->
-                    <base-button :id="addButtonId" size="sm" variant="dark">
-                        <flag-icon class="text-white" height="13px" width="13px"></flag-icon>
-                        Add another language
-                    </base-button>
-                    <b-popover :target="addButtonId" triggers="focus">
-                        <template #title>Enter translation code</template>
-                        <b-input-group class="shadow">
-                            <b-input-group-prepend is-text>
-                                <flag-icon class="text-dark" height="15px" width="15px"></flag-icon>
-                            </b-input-group-prepend>
 
-                            <b-form-input
-                                id="input-add"
-                                v-model="languageToAdd"
-                                :state="state"
-                                class="text-uppercase"
-                                type="search"/>
+        <!-- After clicking on the button, a popover with a form appears -->
+        <base-button :id="addButtonId" class="ml-3" size="sm" variant="dark">
+            <flag-icon class="text-white" height="13px" width="13px"></flag-icon>
+            Add another language
+        </base-button>
+        <b-popover :target="addButtonId" triggers="focus">
+            <template #title>Enter translation code</template>
+            <b-input-group class="shadow">
+                <b-input-group-prepend is-text>
+                    <flag-icon class="text-dark" height="15px" width="15px"></flag-icon>
+                </b-input-group-prepend>
 
-                            <template #append>
-                                <b-button :disabled="!state" variant="success" @click="addLanguage">
-                                    <file-add-icon height="14px" width="14px"></file-add-icon>
-                                    Add
-                                </b-button>
-                            </template>
-                        </b-input-group>
-                        <div class="py-3">
-                            <b-row>
-                                <b-col cols="6">Auto-Translate</b-col>
-                                <b-col cols="6">
-                                    <div class="text-right">
-                                        <base-switch v-if="isAllowedProvider" v-model="autoTranslate" name="autotranslate"/>
-                                        <div v-else class="text-danger">No translation provider defined</div>
-                                    </div>
-                                </b-col>
-                            </b-row>
+                <b-form-input
+                    id="input-add"
+                    v-model="languageToAdd"
+                    :state="state"
+                    class="text-uppercase"
+                    type="search"/>
+
+                <template #append>
+                    <b-button :disabled="!state" variant="success" @click="addLanguage">
+                        <file-add-icon height="14px" width="14px"></file-add-icon>
+                        Add
+                    </b-button>
+                </template>
+            </b-input-group>
+            <div class="py-3">
+                <b-row>
+                    <b-col cols="6">Auto-Translate</b-col>
+                    <b-col cols="6">
+                        <div class="text-right">
+                            <base-switch v-if="isAllowedProvider" v-model="autoTranslate" name="autotranslate"/>
+                            <div v-else class="text-danger">No translation provider defined</div>
                         </div>
+                    </b-col>
+                </b-row>
+            </div>
 
-                        <b-alert show variant="info">
-                            Find a list of available codes
-                            <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>
-                        </b-alert>
-                        <b-alert :show="selectionAlreadyExists" variant="danger">
-                            The entered language already exists
-                        </b-alert>
-                    </b-popover>
-                </b-col>
-            </b-row>
-        </b-list-group-item>
+            <b-alert show variant="info">
+                Find a list of available codes
+                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>
+            </b-alert>
+            <b-alert :show="selectionAlreadyExists" variant="danger">
+                The entered language already exists
+            </b-alert>
+        </b-popover>
+
     </div>
 </template>
 

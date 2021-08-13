@@ -29,15 +29,30 @@
                     :translationValue="value"
                 />
             </div>
+            <b-list-group-item class="list-group-hover">
+                <b-row>
+                    <b-col cols="col-auto">
+                        <!-- Action to add another translation-value           -->
+                        <TranslationValueAdd
+                            :defaultValue="getDefaultValue"
+                            :extension="extension"
+                            :identList="currentIdentList()"
+                            :rerender="render"
+                            :translation="translation"
+                        />
+                    </b-col>
+                    <b-col cols="auto">
+                        <!-- Action to add another translation-value           -->
+                        <TranslationDelete
+                            :rerender="render"
+                            :translation="translation"
+                        />
+                    </b-col>
 
-            <!-- Action to add another translation-value           -->
-            <TranslationValueAdd
-                :defaultValue="getDefaultValue"
-                :extension="extension"
-                :identList="currentIdentList()"
-                :rerender="render"
-                :translation="translation"
-            />
+                </b-row>
+            </b-list-group-item>
+
+
         </b-collapse>
     </div>
 </template>
@@ -46,6 +61,7 @@
 import TranslationValue from "./TranslationValue";
 import TranslationValueAdd from "./TranslationValueAdd";
 import TranslationRename from "./TranslationRename";
+import TranslationDelete from "./TranslationDelete";
 
 export default {
     name: "Translation",
@@ -96,6 +112,7 @@ export default {
         TranslationValue,
         TranslationValueAdd,
         TranslationRename,
+        TranslationDelete
     },
 };
 </script>
