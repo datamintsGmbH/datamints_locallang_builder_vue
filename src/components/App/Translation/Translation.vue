@@ -5,21 +5,42 @@
             :class="buttonClass"
             block
             variant="primary"
-            @click="toggle">
-      <span class="position-relative">
-        <key-icon class="text-white" height="16px" width="16px"></key-icon>
+            @click.self="toggle">
+          <span class="position-relative">
+            <key-icon class="text-white" height="16px" width="16px"></key-icon>
 
-        <strong>Key: </strong>
-          <!-- Rename Function -->
-        <TranslationRename :translation="translation"/>
-      </span>
-            <!-- Badge with default translation value -->
-            <span
-                v-if="getDefaultValue"
-                v-b-tooltip.hover
-                class="badge badge-light badge-pill limit-width"
-                title="Default Translation"
-            >{{ getDefaultValue.value }}</span>
+            <strong>Key: </strong>
+              <!-- Rename Function -->
+            <TranslationRename :translation="translation"/>
+
+
+          </span>
+            <span class="d-flex align-items-center">
+                <!-- Badge with default translation value -->
+                <span
+                    v-if="getDefaultValue"
+                    v-b-tooltip.hover
+                    class="badge badge-light badge-pill limit-width"
+                    title="Default Translation"
+                >{{ getDefaultValue.value }}
+                </span>
+                <span :class="actionClass">
+                    <!-- Action to add another translation-value           -->
+                    <TranslationValueAdd
+                        :defaultValue="getDefaultValue"
+                        :extension="extension"
+                        :identList="currentIdentList()"
+                        :rerender="render"
+                        :translation="translation"
+                    />
+
+                    <!-- Action to add another translation-value           -->
+                    <TranslationDelete
+                        :rerender="render"
+                        :translation="translation"
+                    />
+                </span>
+            </span>
         </b-button>
         <b-collapse v-model="translation.expanded" role="tabpanel" visible>
             <div v-for="value in translation.translationValues" :key="value.ident">
@@ -29,30 +50,6 @@
                     :translationValue="value"
                 />
             </div>
-            <b-list-group-item class="list-group-hover">
-                <b-row>
-                    <b-col cols="col-auto">
-                        <!-- Action to add another translation-value           -->
-                        <TranslationValueAdd
-                            :defaultValue="getDefaultValue"
-                            :extension="extension"
-                            :identList="currentIdentList()"
-                            :rerender="render"
-                            :translation="translation"
-                        />
-                    </b-col>
-                    <b-col cols="auto">
-                        <!-- Action to add another translation-value           -->
-                        <TranslationDelete
-                            :rerender="render"
-                            :translation="translation"
-                        />
-                    </b-col>
-
-                </b-row>
-            </b-list-group-item>
-
-
         </b-collapse>
     </div>
 </template>
@@ -82,6 +79,12 @@ export default {
             return (
                 "badge bg-gradient-primary badge-textmove d-block text-left p-2 d-flex justify-content-between align-items-center" +
                 (this.translation.expanded === true ? " badge-force-textmove" : "")
+            );
+        },
+
+        actionClass: function () {
+            return (
+                (this.translation.expanded === true ? "" : "d-none")
             );
         },
     },
@@ -136,6 +139,7 @@ export default {
         transition: padding-left 0.3s;
     }
 
+
     &:hover {
         > span {
             padding-left: 1rem;
@@ -144,6 +148,7 @@ export default {
                 opacity: 0;
             }
         }
+
     }
 }
 

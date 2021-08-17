@@ -69,6 +69,20 @@ const mutations = {
     }
     console.error("Could not delete translation value.");
   },
+  DELETE_TRANSLATION(state, payload) {
+    // TODO trololol loopmess. Better use .filter() to find matches. Had no better idea as vue-noob
+    for (let extensionKey in state.extensions) {
+      for (let locallangKey in state.extensions[extensionKey].locallangs) {
+        for (let translationKey in state.extensions[extensionKey].locallangs[locallangKey].translationsArray) {
+          if (state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.uid === payload.return) {
+            delete state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey];
+            return;
+          }
+        }
+      }
+    }
+    console.error("Could not delete translation value.");
+  },
   GET_LOCALLANG(state, payload) {
     for (let extensionKey in state.extensions) {
       let locallangs = state.extensions[extensionKey].locallangs;
@@ -164,6 +178,13 @@ const actions = {
       .then((response) => {
         analyzeResponse(response, context.commit);
         context.commit('ADD_TRANSLATION', response.data);
+      }).catch(catchFallback);
+  },
+  async deleteTranslation(context, payload) {
+    await axios.post(proxy.apiPath('api-translation-delete', [payload.uid]))
+      .then((response) => {
+        analyzeResponse(response, context.commit);
+        context.commit('DELETE_TRANSLATION', response.data);
       }).catch(catchFallback);
   },
   async deleteTranslationValue(context, payload) {

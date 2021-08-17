@@ -93,6 +93,7 @@
                 :sort-desc.sync="sortDesc"
                 :sort-direction="sortDirection"
                 small
+                thead-class="d-none"
             >
                 <template #row-details="row">
                     <Translation :translation="row.item.object"/>

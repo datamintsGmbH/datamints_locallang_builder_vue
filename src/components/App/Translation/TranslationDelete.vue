@@ -1,11 +1,11 @@
 <template>
-    <base-button class="d-none"
+    <base-button v-b-tooltip.hover
                  size="sm"
+                 title="Delete key"
                  type="danger"
                  @click="onClickDelete"
     >
-        <delete-forever-icon height="16px" width="16px"/>
-        Delete key
+        <delete-forever-icon height="11px" width="11px"/>
         <b-modal
             v-model="modalActive"
             :hide-footer="showOverlay"
@@ -13,7 +13,9 @@
             @ok="handleOk"
         >
             <b-overlay :show="showOverlay" rounded="sm">
-                asdf
+                <b-alert show variant="danger">
+                    The complete entry for the key "{{ translation.translationKey }}" including all translations will be deleted. Are you sure you wanna do this?
+                </b-alert>
             </b-overlay>
         </b-modal>
     </base-button>
@@ -24,7 +26,7 @@
 
 export default {
     name: "TranslationDelete",
-    props: ["translation"],
+    props: ["translation", "rerendert"],
     data() {
         return {
             modalActive: false,

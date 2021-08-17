@@ -1,10 +1,9 @@
 <template>
-    <div>
+    <span class="pr-1">
 
         <!-- After clicking on the button, a popover with a form appears -->
-        <base-button :id="addButtonId" class="ml-3" size="sm" variant="dark">
-            <flag-icon class="text-white" height="13px" width="13px"></flag-icon>
-            Add another language
+        <base-button :id="addButtonId" v-b-tooltip.hover class="ml-3" size="sm" title="Add language-entry" variant="dark">
+            <flag-icon class="text-white" height="11px" width="11px"></flag-icon>
         </base-button>
         <b-popover :target="addButtonId" triggers="focus">
             <template #title>Enter translation code</template>
@@ -48,7 +47,7 @@
             </b-alert>
         </b-popover>
 
-    </div>
+    </span>
 </template>
 
 <script>
