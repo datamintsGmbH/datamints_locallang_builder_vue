@@ -26,7 +26,7 @@
 
 export default {
     name: "TranslationDelete",
-    props: ["translation", "rerendert"],
+    props: ["translation", "rerender"],
     data() {
         return {
             modalActive: false,

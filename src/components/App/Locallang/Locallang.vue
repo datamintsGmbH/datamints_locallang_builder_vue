@@ -96,7 +96,7 @@
                 thead-class="d-none"
             >
                 <template #row-details="row">
-                    <Translation :translation="row.item.object"/>
+                    <Translation :rerender="render" :translation="row.item.object"/>
                 </template>
                 <template #cell(key)="data">
                     <span class="d-none">{{ data.item.key }}</span>

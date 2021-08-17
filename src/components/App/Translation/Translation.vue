@@ -36,7 +36,7 @@
 
                     <!-- Action to add another translation-value           -->
                     <TranslationDelete
-                        :rerender="render"
+                        :rerender="rerender"
                         :translation="translation"
                     />
                 </span>
@@ -62,7 +62,7 @@ import TranslationDelete from "./TranslationDelete";
 
 export default {
     name: "Translation",
-    props: ["translation"],
+    props: ["translation", "rerender"],
     computed: {
         getDefaultValue: function () {
             for (let translationValueKey in this.translation.translationValues) {
