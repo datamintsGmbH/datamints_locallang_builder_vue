@@ -34,7 +34,13 @@
                         :translation="translation"
                     />
 
-                    <!-- Action to add another translation-value           -->
+                    <!-- Action to display viewhelper           -->
+                    <TranslationViewhelper
+                        :locallangPath="locallang.path"
+                        :translation="translation"
+                    />
+
+                    <!-- Action to add delete this translation-value           -->
                     <TranslationDelete
                         :rerender="rerender"
                         :translation="translation"
@@ -59,10 +65,11 @@ import TranslationValue from "./TranslationValue";
 import TranslationValueAdd from "./TranslationValueAdd";
 import TranslationRename from "./TranslationRename";
 import TranslationDelete from "./TranslationDelete";
+import TranslationViewhelper from "./TranslationViewhelper";
 
 export default {
     name: "Translation",
-    props: ["translation", "rerender"],
+    props: ["translation", "rerender", "locallang"],
     computed: {
         getDefaultValue: function () {
             for (let translationValueKey in this.translation.translationValues) {
@@ -115,7 +122,8 @@ export default {
         TranslationValue,
         TranslationValueAdd,
         TranslationRename,
-        TranslationDelete
+        TranslationDelete,
+        TranslationViewhelper
     },
 };
 </script>

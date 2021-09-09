@@ -22,9 +22,13 @@ import CtrlDownIcon from './assets/icons/ctrl-down'
 import SettingsGearIcon from './assets/icons/settings-gear'
 import LogoGithubIcon from './assets/icons/logo-github'
 import ReloadIcon from './assets/icons/reload'
+import CodeIcon from './assets/icons/code'
 
 // Argon
 import Dashboard from './plugins/dashboard-plugin'
+
+// Clipboard
+import VueClipboard from 'vue-clipboard2';
 
 Vue.config.productionTip = false
 Vue.config.devtools = true;
@@ -40,6 +44,7 @@ Vue.component('folder-dev-icon', FolderDevIcon);
 Vue.component('file-folder-icon', FileFolderIcon);
 Vue.component('language-icon', LanguageIcon);
 Vue.component('flag-icon', FlagIcon);
+Vue.component('code-icon', CodeIcon);
 Vue.component('file-add-icon', FileAddIcon);
 Vue.component('edit-icon', EditIcon);
 Vue.component('delete-forever-icon', DeleteForeverIcon);
@@ -48,6 +53,8 @@ Vue.component('ctrl-down-icon', CtrlDownIcon);
 Vue.component('settings-gear-icon', SettingsGearIcon);
 Vue.component('logo-github-icon', LogoGithubIcon);
 Vue.component('reload-icon', ReloadIcon);
+
+Vue.use(VueClipboard);
 
 Vue.use(Dashboard);
 

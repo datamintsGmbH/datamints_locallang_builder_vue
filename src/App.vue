@@ -34,6 +34,7 @@ import Vue from "vue";
 import {BVToastPlugin} from "bootstrap-vue";
 
 //import "./scss/App.scss";
+
 import SplashScreen from "./components/App/SplashScreen.vue";
 import ExtensionList from "./components/App/Extensions/ExtensionList.vue";
 import DashboardContent from "./components/App/DashboardContent.vue";

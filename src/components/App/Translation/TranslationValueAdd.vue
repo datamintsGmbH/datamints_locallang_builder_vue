@@ -2,7 +2,7 @@
     <span class="pr-1">
 
         <!-- After clicking on the button, a popover with a form appears -->
-        <base-button :id="addButtonId" v-b-tooltip.hover class="ml-3" size="sm" title="Add language-entry" variant="dark">
+        <base-button :id="addButtonId" v-b-tooltip.hover size="sm" title="Add language-entry" variant="dark">
             <flag-icon class="text-white" height="11px" width="11px"></flag-icon>
         </base-button>
         <b-popover :target="addButtonId" triggers="focus">
