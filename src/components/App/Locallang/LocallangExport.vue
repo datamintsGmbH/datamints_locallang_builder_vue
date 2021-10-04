@@ -104,7 +104,7 @@ export default {
                 },
             ],
             selectedTarget: "overwrite",
-            triggerBackup: true,
+            triggerBackup: false,
             triggerCache: true,
         };
     },
