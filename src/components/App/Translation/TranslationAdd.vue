@@ -26,7 +26,7 @@
                 </b-row>
                 <b-row>
                     <b-col lg="8">
-                        <b-card header="Configuration">
+                        <b-card header="Required fields" header-class="font-weight-bold" header-text-variant="primary">
                             <b-form ref="form" :validated="formIsValid" novalidate @submit.stop.prevent="handleSubmit">
                                 <!-- Input: Key name -->
                                 <b-form-group label="Enter key name">
@@ -56,129 +56,129 @@
                                         No value given
                                     </b-form-invalid-feedback>
                                 </b-form-group>
-                                <b-input-group class="pb-4" prepend="Languages to add">
-
-                                    <b-form-tags
-                                        v-model="newObjectLanguages"
-                                        :state="tagsAreValid"
-                                        :tag-validator="tagValidator"
-                                        input-id="tags-separators"
-                                        invalidTagText="The entered language code was not found"
-                                        placeholder="Separate by space, comma or semicolon"
-                                        remove-on-delete
-                                        separator=" ,;"
-                                        tag-variant="primary"
-                                        @tag-state="onTagState"
-                                    >
-                                    </b-form-tags>
-                                    <!-- Quick Select -->
-                                    <b-input-group-append v-if="hasAtLeastOneLanguageInUse">
-                                        <b-button
-                                            :id="addCurrentLanguagesButtonId"
-                                            variant="outline-primary"
-                                        >
-                                            <b-icon icon="plus"></b-icon
-                                            >
-                                        </b-button>
-                                        <b-popover
-                                            :target="addCurrentLanguagesButtonId"
-                                            triggers="focus"
-                                        >
-                                            <template #title>
-                                                <a
-                                                    v-b-tooltip.hover
-                                                    href="#"
-                                                    title="List of current active languages in this locallang-file"
-                                                >
-                                                    Quick-Select:
-                                                </a>
-                                            </template>
-                                            <!-- Country-List for Quick-Select -->
-                                            <b-list-group>
-                                                <!-- Append all languages -->
-                                                <b-list-group-item
-                                                    class="p-1"
-                                                    href="#"
-                                                    @click="appendLanguage()"
-                                                >
-                                                    <b-button class="m-2" size="sm" variant="primary"
-                                                    >All
-                                                    </b-button>
-                                                    <span></span>
-                                                </b-list-group-item>
-                                                <!-- List of all appendable languages -->
-                                                <b-list-group-item
-                                                    v-for="(language, key) in languagesInUse()"
-                                                    :key="key"
-                                                    class="p-1"
-                                                    href="#"
-                                                    @click="appendLanguage(language)"
-                                                >
-                                                    <b-button class="m-2" size="sm" variant="primary"
-                                                    >{{ getLanguageNameByKey(language) }} <img
-                                                        :src="getLanguageIcon(language)"
-                                                        class="flag-svg"
-                                                    /></b-button>
 
 
-                                                </b-list-group-item>
-                                            </b-list-group>
-                                        </b-popover>
-                                    </b-input-group-append>
-                                </b-input-group>
-                                <b-alert class="p-2" show size="sm" variant="light">
-                                    <span class="alert-icon pl-2"><translation-symbols-icon height="18px" width="18px"></translation-symbols-icon></span>
-                                    Find a list of available codes
-                                    <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>
-                                </b-alert>
-                                <hr/>
-                                <b-card>
-                                    <template #header>
-                                        <settings-gear-icon class="pr-2" height="23px" width="23px"></settings-gear-icon>
-                                        Options
-                                    </template>
-                                    <b-row>
-                                        <b-col cols="6">
-                                            <b-form-group label="Auto-Translate">
-                                                <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
-                                                <div v-else class="text-danger">No translation provider defined</div>
-
-                                            </b-form-group>
-                                        </b-col>
-                                        <b-col cols="6">
-                                            <b-form-group label="Is approved">
-                                                <base-switch v-model="newObjectIsApproved" name="isapproved"/>
-                                            </b-form-group>
-                                        </b-col>
-                                        <b-col cols="6">
-                                            <b-form-group label="XML-Space">
-                                                <b-form-select v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
-                                            </b-form-group>
-                                        </b-col>
-                                    </b-row>
-                                </b-card>
                             </b-form>
+                        </b-card>
+                        <b-card>
+                            <template #header>
+                                <translation-symbols-icon class="pr-2" height="18px" width="18px"></translation-symbols-icon>
+                                <span class="text-primary font-weight-bold">Other languages</span>
+                            </template>
+                            <b-row>
+                                <b-col>
+                                    <b-input-group class="pb-4" prepend="Languages to add">
+
+                                        <b-form-tags
+                                            v-model="newObjectLanguages"
+                                            :state="tagsAreValid"
+                                            :tag-validator="tagValidator"
+                                            input-id="tags-separators"
+                                            invalidTagText="The entered language code was not found"
+                                            placeholder="Separate by space, comma or semicolon (e.g. de,es,ru)"
+                                            remove-on-delete
+                                            separator=" ,;"
+                                            tag-variant="primary"
+                                            @tag-state="onTagState"
+                                        >
+                                        </b-form-tags>
+                                        <!-- Quick Select -->
+                                        <b-input-group-append v-if="hasAtLeastOneLanguageInUse">
+                                            <b-button
+                                                :id="addCurrentLanguagesButtonId"
+                                                variant="outline-primary"
+                                            >
+                                                <b-icon icon="plus"></b-icon
+                                                >
+                                            </b-button>
+                                            <b-popover
+                                                :target="addCurrentLanguagesButtonId"
+                                                triggers="focus"
+                                            >
+                                                <template #title>
+                                                    <a
+                                                        v-b-tooltip.hover
+                                                        href="#"
+                                                        title="List of current active languages in this locallang-file"
+                                                    >
+                                                        Quick-Select:
+                                                    </a>
+                                                </template>
+                                                <!-- Country-List for Quick-Select -->
+                                                <b-list-group>
+                                                    <!-- Append all languages -->
+                                                    <b-list-group-item
+                                                        class="p-1 w-100 text-left"
+                                                        href="#"
+                                                        @click="appendLanguage()"
+                                                    >
+                                                        <b-button class="m-2 w-100 text-left" size="sm" variant="primary"
+                                                        >All
+                                                        </b-button>
+                                                        <span></span>
+                                                    </b-list-group-item>
+                                                    <!-- List of all appendable languages -->
+                                                    <b-list-group-item
+                                                        v-for="(language, key) in languagesInUse()"
+                                                        :key="key"
+                                                        class="p-1"
+                                                        href="#"
+                                                        @click="appendLanguage(language)"
+                                                    >
+                                                        <b-button class="m-2 w-100 text-left" size="sm" variant="primary"
+                                                        ><img
+                                                            :src="getLanguageIcon(language)"
+                                                            class="flag-svg"
+                                                        /> {{ getLanguageNameByKey(language) }}
+                                                        </b-button>
+
+
+                                                    </b-list-group-item>
+                                                </b-list-group>
+                                            </b-popover>
+                                        </b-input-group-append>
+                                    </b-input-group>
+                                    <b-alert class="p-2" show size="sm" variant="info">
+                                        <span class="alert-icon pl-2"><translation-symbols-icon height="18px" width="18px"></translation-symbols-icon></span>
+
+                                        Find a list of available codes
+                                        <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>.
+
+
+                                    </b-alert>
+                                    <b-alert class="p-2" show size="sm" variant="warning">
+                                        <span class="alert-icon pl-2"><translation-symbols-icon height="18px" width="18px"></translation-symbols-icon></span>
+                                        The English data record is created automatically and cannot be taken into account.
+                                    </b-alert>
+                                </b-col>
+                            </b-row>
                         </b-card>
                     </b-col>
                     <b-col lg="4">
-                        <b-card header="Languages to add">
-                            <b-card v-if="newObjectLanguages.length > 0">
-                                <ol>
-                                    <li
-                                        v-for="(newObjectLanguage, key) in newObjectLanguages"
-                                        :key="key"
-                                    >
-                                        {{ getLanguageNameByKey(newObjectLanguage) }}
-                                        <img
-                                            :src="getLanguageIcon(newObjectLanguage)"
-                                            class="flag-svg"
-                                        />
-                                    </li>
-                                </ol>
-                            </b-card>
-                            <b-alert v-else show variant="info">
-                                Please select at least one language
-                            </b-alert>
+                        <b-card>
+                            <template #header>
+                                <settings-gear-icon class="pr-2" height="23px" width="23px"></settings-gear-icon>
+                                <span class="text-primary font-weight-bold">Options</span>
+                            </template>
+                            <b-row>
+                                <b-col cols="6">
+                                    <b-form-group label="Auto-Translate">
+                                        <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
+                                        <div v-else class="text-danger">No translation provider defined</div>
+
+                                    </b-form-group>
+                                </b-col>
+                                <b-col cols="6">
+                                    <b-form-group label="Is approved">
+                                        <base-switch v-model="newObjectIsApproved" name="isapproved"/>
+                                    </b-form-group>
+                                </b-col>
+                                <b-col cols="6">
+                                    <b-form-group label="XML-Space">
+                                        <b-form-select v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
+                                    </b-form-group>
+                                </b-col>
+                            </b-row>
                         </b-card>
                     </b-col>
                 </b-row>
@@ -204,6 +204,9 @@ export default {
     computed: {
         languages() {
             return this.$store.getters.languages;
+        },
+        customLanguagesAmount() {
+            return this.newObjectLanguages.length;
         },
         isAllowedProvider: function () {
             return this.$store.getters.config.provider.length > 0;
@@ -234,7 +237,7 @@ export default {
          */
         tagsAreValid() {
             if (!this.showFormValidation) return null;
-            return this.newObjectLanguages.length > 0
+            return true;
         },
         hasAtLeastOneLanguageInUse() {
             return this.languagesInUse().length > 0;
@@ -345,7 +348,7 @@ export default {
          * Called before executing the submit action and triggers the form-validation. Additionally we check, if the tags are valid
          */
         checkFormValidity() {
-            const valid = (this.$refs.form.checkValidity() && this.newObjectLanguages.length > 0); // dont know why the form does not contain validation for the tag-component. Its displayed but not mentioned here
+            const valid = (this.$refs.form.checkValidity()); // dont know why the form does not contain validation for the tag-component. Its displayed but not mentioned here
             this.showFormValidation = true;
             this.formIsValid = valid;
             return (valid);
