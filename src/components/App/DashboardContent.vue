@@ -27,16 +27,12 @@
                     </b-col>
                 </b-row>
                 <!-- Card stats -->
-                <!--
+
                 <b-row>
-                    <b-col md="6" xl="3">
-                        <stats-card icon="ni ni-active-40"
-                                    sub-title="N/A"
-                                    title="Total translations"
-                                    type="gradient-red">
-                        </stats-card>
+                    <b-col md="6">
+                        <ExcludedExtensions/>
                     </b-col>
-                    <b-col md="6" xl="3">
+                    <b-col md="6">
                         <stats-card icon="ni ni-chart-pie-35"
                                     sub-title="N/A"
                                     title="Updates"
@@ -44,22 +40,22 @@
 
                         </stats-card>
                     </b-col>
-                    <b-col md="6" xl="3">
-                        <stats-card icon="ni ni-money-coins"
-                                    sub-title="N/A"
-                                    title="Export-Count"
-                                    type="gradient-green">
-                        </stats-card>
+                    <!--                    <b-col md="6" xl="3">-->
+                    <!--                        <stats-card icon="ni ni-money-coins"-->
+                    <!--                                    sub-title="N/A"-->
+                    <!--                                    title="Export-Count"-->
+                    <!--                                    type="gradient-green">-->
+                    <!--                        </stats-card>-->
 
-                    </b-col>
-                    <b-col md="6" xl="3">
-                        <stats-card icon="ni ni-chart-bar-32"
-                                    sub-title="N/A"
-                                    title="Auto-Translations"
-                                    type="gradient-info">
-                        </stats-card>
-                    </b-col>
-             </b-row>-->
+                    <!--                    </b-col>-->
+                    <!--                    <b-col md="6" xl="3">-->
+                    <!--                        <stats-card icon="ni ni-chart-bar-32"-->
+                    <!--                                    sub-title="N/A"-->
+                    <!--                                    title="Auto-Translations"-->
+                    <!--                                    type="gradient-info">-->
+                    <!--                        </stats-card>-->
+                    <!--                    </b-col>-->
+                </b-row>
             </b-container>
         </div>
     </div>
@@ -67,11 +63,13 @@
 
 <script>
 import Locallang from "./Locallang/Locallang";
+import ExcludedExtensions from "./ExcludedExtensions";
 
 export default {
     props: ["locallang"],
     components: {
         Locallang,
+        ExcludedExtensions,
     },
     computed: {
         getProviderName: function () {
