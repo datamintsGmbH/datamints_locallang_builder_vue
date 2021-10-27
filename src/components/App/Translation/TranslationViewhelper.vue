@@ -89,7 +89,7 @@ export default {
             return "{f:translate(key:\"LLL:EXT:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "\")}";
         },
         extbase() {
-            return "LocalizationUtility::translate('LLL:EXT:" + this.croppedLocallangPath + "', '" + this.croppedExtensionname + "');"
+            return "LocalizationUtility::translate('LLL:EXT:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "', '" + this.croppedExtensionname + "');"
         },
         croppedLocallangPath() {
             return this.locallangPath.replace("typo3conf/ext/", "");

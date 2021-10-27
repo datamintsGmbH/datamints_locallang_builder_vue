@@ -33,12 +33,7 @@
                         <ExcludedExtensions/>
                     </b-col>
                     <b-col md="6">
-                        <stats-card icon="ni ni-chart-pie-35"
-                                    sub-title="N/A"
-                                    title="Updates"
-                                    type="gradient-orange">
 
-                        </stats-card>
                     </b-col>
                     <!--                    <b-col md="6" xl="3">-->
                     <!--                        <stats-card icon="ni ni-money-coins"-->

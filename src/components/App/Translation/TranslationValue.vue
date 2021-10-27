@@ -28,7 +28,7 @@
                                   <b-badge
                                       v-if="changed"
                                       v-b-tooltip.hover
-                                      class="p-2 ml-2"
+                                      class="p-2 mx-2"
                                       pill
                                       title="Changes will be saved"
                                       variant="primary"
