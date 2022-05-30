@@ -3,7 +3,7 @@
         <locallang v-if="locallang" :key="locallang.uid" :locallang="locallang"/>
         <div v-else>
             <b-container class="pb-6">
-                <div class="d-flex justify-content-lg-center px-3 my-5 align-items-center">
+                <div class="d-flex justify-content-lg-center px-3 my-2 align-items-center">
                     <div>
                         <div class="icon icon-shape bg-gradient-white shadow rounded-circle text-primary">
                             <i class="ni ni-settings text-primary"></i>
