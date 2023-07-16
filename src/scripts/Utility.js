@@ -20,5 +20,5 @@ export let replaceVariables = function (string, vars) {
 }
 
 export let getLanguageSvg = function (languageCode) {
-  return "/typo3conf/ext/locallang_builder/Resources/Public/Icons/svg/" + languageCode.toUpperCase() + ".svg";
+  return "/typo3conf/ext/datamints_locallang_builder/Resources/Public/Icons/svg/" + languageCode.toUpperCase() + ".svg";
 }
