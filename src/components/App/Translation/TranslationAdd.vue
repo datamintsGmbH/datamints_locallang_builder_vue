@@ -42,7 +42,7 @@
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                                 <!-- Input: Default Translation -->
-                                <b-form-group label="Enter default value for 'EN'">
+                                <b-form-group label="Enter default value for language 'EN'">
                                     <b-form-textarea
                                         v-model="newObjectValue"
                                         max-rows="10"
@@ -210,8 +210,8 @@ export default {
             invalidTags: [],
             duplicateTags: [],
             newObjectAutoTranslate: true,
-            newObjectIsApproved: false,
-            newObjectLanguages: [],
+            newObjectIsApproved: true,
+            newObjectLanguages: this.languagesInUse(),
             newObjectKey: "",
             newObjectValue: "",
             newObjectXmlSpace: "",
@@ -260,6 +260,10 @@ export default {
         },
         showModal() {
             this.modalActive = true;
+            const languagesInUse = this.languagesInUse();
+            for (let i = 0; i < languagesInUse.length; i++) {
+                this.newObjectLanguages.push(languagesInUse[i]);
+            }
         },
         handleOk(bvModalEvt) {
             // Prevent modal from closing
