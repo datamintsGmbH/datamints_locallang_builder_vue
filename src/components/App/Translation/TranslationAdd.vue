@@ -281,12 +281,6 @@ export default {
     },
     methods: {
         /**
-         * onClick on the action-button
-         */
-        showModal() {
-            this.modalActive = true;
-        },
-        /**
          * Gets an icon for the given languageCode
          */
         getLanguageIcon(languageCode) {
