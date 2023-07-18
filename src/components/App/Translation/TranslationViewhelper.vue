@@ -59,6 +59,23 @@
 
                     </b-card>
                 </b-tab>
+                <b-tab lazy>
+                  <template v-slot:title>
+                    <i class="ni ni-like-2 mr-2"></i> Plain
+                  </template>
+                  <b-card header="Plain" header-bg-variant="primary" header-class="font-weight-bold" header-text-variant="white">
+                        <base-input input-classes="form-control-sm" label="Copy">
+                          <textarea v-model="plain"
+                                    v-b-tooltip.hover
+                                    v-clipboard:copy="plain"
+                                    v-clipboard:error="onError"
+                                    v-clipboard:success="onCopy"
+                                    class="form-control form-control-muted copy-textarea"
+                                    rows="5" title="Click to copy the content to your clipboard"></textarea>
+                        </base-input>
+
+                    </b-card>
+                </b-tab>
               </b-tabs>
 
 
@@ -83,13 +100,16 @@ export default {
     },
     computed: {
         fluid() {
-            return "<f:translate key=\"LLL:EXT:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "\" />";
+            return "<f:translate key=\"LLL:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "\" />";
         },
         fluidInline() {
-            return "{f:translate(key:\"LLL:EXT:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "\")}";
+            return "{f:translate(key:'LLL:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "')}";
         },
         extbase() {
-            return "LocalizationUtility::translate('LLL:EXT:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "', '" + this.croppedExtensionname + "');"
+            return "LocalizationUtility::translate('LLL:" + this.croppedLocallangPath + ":" + this.translation.translationKey + "', '" + this.croppedExtensionname + "');"
+        },
+        plain() {
+            return "LLL:" + this.croppedLocallangPath + ":" + this.translation.translationKey;
         },
         croppedLocallangPath() {
             return this.locallangPath.replace("typo3conf/ext/", "");
