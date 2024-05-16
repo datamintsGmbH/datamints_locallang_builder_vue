@@ -51,7 +51,7 @@ const state = {
       trans: "Catalan"
     },
     {
-      key: "zh-Hans",
+      key: "zh",
       trans: "Chinese Simplified"
     },
     {
