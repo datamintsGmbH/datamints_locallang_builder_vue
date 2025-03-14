@@ -4,16 +4,12 @@
         <div v-else>
             <b-container class="pb-6">
                 <div class="d-flex justify-content-lg-center px-3 my-2 align-items-center">
-                    <div>
-                        <div class="icon icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                            <i class="ni ni-settings text-primary"></i>
-                        </div>
-                    </div>
-                    <b-row>
-                        <b-col>
-                            <span>Please first select a locallang file in the sidebar in order to be able to edit the translations.</span>
-                        </b-col>
-                    </b-row>
+                    <div class="callout callout-info"><div class="callout-icon"><span class="icon-emphasized"><span class="t3js-icon icon icon-size-small icon-state-default icon-actions-info" data-identifier="actions-info" aria-hidden="true">
+	<span class="icon-markup">
+<svg class="icon-color"><use xlink:href="/_assets/1ee1d3e909b58d32e30dcea666dd3224/Icons/T3Icons/sprites/actions.svg#actions-info"></use></svg>
+	</span>
+
+</span></span></div><div class="callout-content"><div class="callout-title"></div><div class="callout-body">Please first select a locallang file in the sidebar in order to be able to edit the translations.</div></div></div>
 
                 </div>
                 <b-row>

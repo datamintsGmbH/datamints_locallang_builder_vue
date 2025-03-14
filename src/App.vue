@@ -5,14 +5,11 @@
         <extension-list @locallang="onLocallangSelect"></extension-list>
 
         <div class="main-content">
-            <splash-screen/>
             <b-alert v-if="error" show variant="danger">
                 <h4 class="alert-heading">Critical error</h4>
                 <p>A fatal error has occurred. Please reload this browser tab and submit a new issue: <a href="https://github.com/datamintsGmbH/datamints_locallang_builder/issues" target="_blank">here</a>.</p>
             </b-alert>
             <dashboard-content :locallang="selectedLocallang"></dashboard-content>
-
-
         </div>
         <footer class="footer bg-gradient-primary p-2">
             <b-row>
@@ -35,7 +32,6 @@ import {BVToastPlugin} from "bootstrap-vue";
 
 //import "./scss/App.scss";
 
-import SplashScreen from "./components/App/SplashScreen.vue";
 import ExtensionList from "./components/App/Extensions/ExtensionList.vue";
 import DashboardContent from "./components/App/DashboardContent.vue";
 
@@ -45,7 +41,6 @@ Vue.use(BVToastPlugin);
 export default {
     name: "App",
     components: {
-        SplashScreen,
         DashboardContent,
         ExtensionList,
     },

@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-list-group>
-            <b-list-group-item class="list-group-hover position-relative">
+            <b-list-group-item class="position-relative">
                 <div v-show="savingTime" class="position-absolute save-overlay bg-light p-1">
                     <!-- Remaining Time -->
                     Auto-Saving in

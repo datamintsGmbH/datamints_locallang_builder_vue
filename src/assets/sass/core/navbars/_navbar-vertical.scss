@@ -453,7 +453,7 @@
 
 .sidenav-toggler-line {
     height: 2px;
-    background-color: theme-color("default");
+    background-color: var(--typo3-text-color-base);
     display: block;
     position: relative;
 

@@ -13,22 +13,22 @@
       data-toggle="collapse"
       @click.prevent="collapseMenu"
     >
-      <template v-if="addLink">
-        <span class="nav-link-text overflow-prevent">
-          {{ link.name }} <b class="caret"></b>
-        </span>
-      </template> 
-      <template v-else>
-        <i v-if="collapsed">
-          <folder-dev-icon width="20px" height="20px" ></folder-dev-icon>  
-        </i>
-        <i v-else>
-          <file-folder-icon width="20px" height="20px"></file-folder-icon>
-        </i>
+        <div class="node-treelines">
+            <div class="node-treeline node-treeline--none"></div>
+            <div class="node-content">
+              <template v-if="addLink">
+                <span class="nav-link-text overflow-prevent node">
+                  {{ link.name }} <b class="caret"></b>
+                </span>
+              </template>
+              <template v-else>
+                  <span class="node-icon"><typo3-backend-icon size="small" identifier="apps-pagetree-folder-default" overlay=""></typo3-backend-icon></span>
 
-        <span v-if="titleHasMoreThan22Chars" class="nav-link-text overflow-prevent" :title="link.name" v-b-tooltip.hover>{{ link.name }} <b class="caret"></b></span>
-        <span v-else class="nav-link-text overflow-prevent">{{ link.name }} <b class="caret"></b></span>
-      </template>
+                  <span v-if="titleHasMoreThan22Chars" class="nav-link-text overflow-prevent node-contentlabel" :title="link.name" v-b-tooltip.hover><span class="node-name">{{ link.name }}</span></span>
+                  <span v-else class="nav-link-text overflow-prevent node-contentlabel"><span class="node-name">{{ link.name }} </span></span>
+              </template>
+            </div>
+        </div>
     </a>
 
     <collapse-transition>
@@ -40,7 +40,7 @@
         <ul class="nav nav-sm flex-column">
           <slot></slot>
         </ul>
-        
+
       </div>
     </collapse-transition>
 
