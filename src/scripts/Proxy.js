@@ -1,5 +1,9 @@
 import * as utility from './Utility.js'
 
+const standalonePath = function (ident) {
+  return '/' + ident.replace(/-/g, '/') + '.json';
+}
+
 export let apiPath = function (ident, apiArguments = []) {
   const STANDALONE = false;
   const baseStyles = [
@@ -11,9 +15,13 @@ export let apiPath = function (ident, apiArguments = []) {
 
   let path = '';
   if (STANDALONE) {
-    path = '/' + ident.replace(/-/g, '/');
+    path = standalonePath(ident);
   } else {
     path = utility.metaAttribute(ident)
+    if (!path) {
+      path = standalonePath(ident);
+      console.warn(`Missing TYPO3 API path for "${ident}". Falling back to standalone path "${path}".`);
+    }
   }
   if (apiArguments.length > 0) {
     path = utility.replaceVariables(path, apiArguments);
