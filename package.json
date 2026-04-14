@@ -4,11 +4,11 @@
 	"private": true,
 	"outputDir": "blub",
 	"scripts": {
-		"serveDev": "vue-cli-service serve --mode development",
-		"serveProd": "vue-cli-service serve --mode production",
-		"build": "vue-cli-service build",
-		"watchDev": "vue-cli-service build --watch --mode development",
-		"watchProd": "vue-cli-service build --watch --mode production",
+		"serveDev": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode development",
+		"serveProd": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode production",
+		"build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+		"watchDev": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --watch --mode development",
+		"watchProd": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --watch --mode production",
 		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {
