@@ -21,7 +21,10 @@ export default {
     components: {},
     computed: {
         getExcludedExtensions: function () {
-            return this.$store.getters.config.excludedExtensions.split(/[,;]/);
+            return this.$store.getters.config.excludedExtensions
+                .split(/[,;]/)
+                .map((extension) => extension.trim())
+                .filter((extension) => extension.length > 0);
         },
     }
 };
