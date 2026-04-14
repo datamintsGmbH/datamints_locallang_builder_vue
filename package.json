@@ -4,12 +4,12 @@
 	"private": true,
 	"outputDir": "blub",
 	"scripts": {
-		"serveDev": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode development",
-		"serveProd": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode production",
-		"build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
-		"watchDev": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --watch --mode development",
-		"watchProd": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --watch --mode production",
-		"lint": "vue-cli-service lint"
+		"serveDev": "export BROWSERSLIST_IGNORE_OLD_DATA=true && export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode development",
+		"serveProd": "export BROWSERSLIST_IGNORE_OLD_DATA=true && export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode production",
+		"build": "export BROWSERSLIST_IGNORE_OLD_DATA=true && export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+		"watchDev": "export BROWSERSLIST_IGNORE_OLD_DATA=true && export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --watch --mode development",
+		"watchProd": "export BROWSERSLIST_IGNORE_OLD_DATA=true && export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --watch --mode production",
+		"lint": "export BROWSERSLIST_IGNORE_OLD_DATA=true && vue-cli-service lint"
 	},
 	"dependencies": {
 		"@fullcalendar/core": "^4.0.2",
