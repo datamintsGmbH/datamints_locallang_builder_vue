@@ -2,9 +2,42 @@
  * Store State
  */
 import * as utility from "../../scripts/Utility";
+import packageJson from "../../../package.json";
+
+const defaultConfig = {
+  provider: "",
+  gitUrl: "https://github.com/datamintsGmbH/datamints_locallang_builder",
+  documentationUrl: "https://github.com/datamintsGmbH/datamints_locallang_builder",
+  version: packageJson.version,
+  excludedExtensions: ""
+};
+
+const resolveConfig = () => {
+  const rawConfig = utility.metaAttribute("config");
+
+  if (!rawConfig) {
+    console.warn("No TYPO3 runtime config was found. Falling back to standalone defaults.");
+    return {...defaultConfig};
+  }
+
+  try {
+    const parsedConfig = JSON.parse(rawConfig);
+
+    if (parsedConfig && typeof parsedConfig === "object") {
+      return {
+        ...defaultConfig,
+        ...parsedConfig
+      };
+    }
+  } catch (error) {
+    console.warn("Could not parse TYPO3 runtime config. Falling back to standalone defaults.", error);
+  }
+
+  return {...defaultConfig};
+};
 
 const state = {
-  config: JSON.parse(utility.metaAttribute('config'))
+  config: resolveConfig()
 };
 
 /**
