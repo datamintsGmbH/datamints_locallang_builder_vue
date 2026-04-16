@@ -301,6 +301,10 @@
     &.fixed-left + .main-content {
         margin-left: $navbar-vertical-width;
         @include transition($transition-base);
+
+        @include media-breakpoint-up(xl) {
+            margin-left: $navbar-vertical-open-width;
+        }
     }
 
     &.fixed-right + .main-content {
