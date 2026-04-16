@@ -1,8 +1,6 @@
 <template>
   <!-- Left div because b-navbar does not trigger on mouseenter / mouseleave events -->
   <div class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-primary bg-white"
-       @mouseenter="$sidebar.onMouseEnter()"
-       @mouseleave="$sidebar.onMouseLeave()"
        :data="backgroundColor">
     <div class="scrollbar-inner" ref="sidebarScrollArea">
       <div class="sidenav-header d-flex align-items-center">
@@ -48,18 +46,6 @@
               c4.1-2.9,8.7-5.2,13.6-6.4C159.1,8.9,155.2,11.8,151.6,15z"/>
             </svg>
         </b-navbar-brand>
-        <div class="ml-auto">
-          <!-- Sidenav toggler -->
-          <div class="sidenav-toggler"
-               :class="{'active': !$sidebar.isMinimized }"
-               @click="minimizeSidebar">
-            <div class="sidenav-toggler-inner">
-              <i class="sidenav-toggler-line"></i>
-              <i class="sidenav-toggler-line"></i>
-              <i class="sidenav-toggler-line"></i>
-            </div>
-          </div>
-        </div>
       </div>
       <hr />
       <slot></slot>
@@ -125,7 +111,7 @@ export default {
     },
     autoClose: {
       type: Boolean,
-      default: true,
+      default: false,
       description:
         "Whether sidebar should autoclose on mobile when clicking an item",
     },
@@ -136,20 +122,21 @@ export default {
     };
   },
   methods: {
-    minimizeSidebar() {
+    expandSidebar() {
       if (this.$sidebar) {
-        this.$sidebar.toggleMinimize();
+        this.$sidebar.expandSidebar();
       }
+    },
+    handleResize() {
+      this.expandSidebar();
     },
   },
   mounted() {
-    this.$sidebar.isMinimized = this.$sidebar.breakpoint < window.innerWidth;
-    this.minimizeSidebar();
+    this.expandSidebar();
+    window.addEventListener("resize", this.handleResize);
   },
   beforeDestroy() {
-    if (this.$sidebar.showSidebar) {
-      this.$sidebar.showSidebar = false;
-    }
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>
