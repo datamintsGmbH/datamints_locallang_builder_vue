@@ -11,9 +11,8 @@
       <tr v-for="(item, index) in data" :key="index">
         <slot :row="item" :index="index">
           <td
-            v-for="(column, index) in columns"
-            :key="index"
-            v-if="hasValue(item, column)"
+            v-for="column in visibleColumns(item)"
+            :key="column"
           >
             {{ itemValue(item, column) }}
           </td>
@@ -58,6 +57,9 @@ export default {
     }
   },
   methods: {
+    visibleColumns(item) {
+      return this.columns.filter((column) => this.hasValue(item, column));
+    },
     hasValue(item, column) {
       return item[column.toLowerCase()] !== 'undefined';
     },
