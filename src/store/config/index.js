@@ -9,7 +9,8 @@ const defaultConfig = {
   gitUrl: "https://github.com/datamintsGmbH/datamints_locallang_builder",
   documentationUrl: "https://github.com/datamintsGmbH/datamints_locallang_builder",
   version: packageJson.version,
-  excludedExtensions: ""
+  excludedExtensions: "",
+  languageSvgTemplate: ""
 };
 
 const resolveConfig = () => {
@@ -26,6 +27,8 @@ const resolveConfig = () => {
     if (parsedConfig && typeof parsedConfig === "object") {
       return {
         ...defaultConfig,
+        languageSvgTemplate:
+          utility.metaAttribute("language-svg-template") || defaultConfig.languageSvgTemplate,
         ...parsedConfig
       };
     }
@@ -33,7 +36,11 @@ const resolveConfig = () => {
     console.warn("Could not parse TYPO3 runtime config. Falling back to standalone defaults.", error);
   }
 
-  return {...defaultConfig};
+  return {
+    ...defaultConfig,
+    languageSvgTemplate:
+      utility.metaAttribute("language-svg-template") || defaultConfig.languageSvgTemplate
+  };
 };
 
 const state = {
