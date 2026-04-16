@@ -20,5 +20,11 @@ export let replaceVariables = function (string, vars) {
 }
 
 export let getLanguageSvg = function (languageCode) {
+  const svgTemplate = metaAttribute('language-svg-template');
+
+  if (svgTemplate) {
+    return decodeURI(svgTemplate).replace('__LANGUAGE__', languageCode.toUpperCase());
+  }
+
   return "/typo3conf/ext/datamints_locallang_builder/Resources/Public/Icons/svg/" + languageCode.toUpperCase() + ".svg";
 }
