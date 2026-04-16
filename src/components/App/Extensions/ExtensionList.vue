@@ -14,18 +14,19 @@
                         <b-alert show variant="warning">
                             <h4 class="alert-heading">Please wait!</h4>
                             <p>
-                                This process can take up to one minute depending on the amount of
-                                extensions.
+                                Extensions and locallang files are being discovered.
                             </p>
                             <hr/>
                             <p class="mb-0">
-                                First time calculating can take some extra time to load everything
-                                into the cache.
+                                The translation contents are imported only when you open a file.
                             </p>
                         </b-alert>
                     </b-card>
                 </template>
             </b-skeleton-wrapper>
+            <h6 class="navbar-heading p-0 text-muted ml-3">
+                Extensions
+            </h6>
             <!-- 1st Level -->
             <sidebar-item
                 v-for="extension in extensions" v-bind:key="extension.uid"
@@ -55,7 +56,7 @@
                         @click.prevent="onReloadClick"
                     >
                         <reload-icon class="mr-3" height="16px" width="16px"></reload-icon>
-                        <b-nav-text class="p-0">Reimport</b-nav-text>
+                        <b-nav-text class="p-0">Invalidate caches</b-nav-text>
                     </b-nav-item>
                 </b-nav>
 
