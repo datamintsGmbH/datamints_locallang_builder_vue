@@ -2,9 +2,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
       ? '/'
         : '/',
-    outputDir: process.env.NODE_ENV === 'production'
-    ? '../../Public/VueGenerated/'
-      : '/public/dist',
+    outputDir: '../../Public/VueGenerated/',
     filenameHashing: false,
     configureWebpack: {
       performance: {
@@ -17,6 +15,6 @@ module.exports = {
       config.plugins.delete('prefetch')
       config.plugins.delete('preload')
     }
-        
+
     }
   }
