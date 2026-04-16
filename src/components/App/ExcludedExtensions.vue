@@ -3,13 +3,16 @@
         <stats-card icon="ni ni-active-40"
                     type="gradient-red">
             <h5 v-b-tooltip.hover class="card-title text-uppercase text-muted" title="A list of extensions that should not be displayed can be maintained in typoscript">Excluded extensions</h5>
-            <span class="font-weight-bold">
+            <div class="font-weight-bold">
                 <ul>
                     <li v-for="excludedExtension in getExcludedExtensions" :key="excludedExtension">
                         {{ excludedExtension }}
                     </li>
                 </ul>
-            </span>
+                <p>
+                    You can modify the list in the extension-settings
+                </p>
+            </div>
         </stats-card>
     </div>
 </template>
