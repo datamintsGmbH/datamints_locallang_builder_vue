@@ -1,5 +1,7 @@
 <template>
     <div>
+        <small v-if="!isLoaded" class="text-muted mr-2">Importing file...</small>
+        <template v-else>
         <!-- Add new Entity -->
         <translation-add
             :languagesInUse="languagesInUse"
@@ -29,6 +31,7 @@
 
         <!-- Export -->
         <locallang-export :locallang="locallang"/>
+        </template>
 
     </div>
 </template>
