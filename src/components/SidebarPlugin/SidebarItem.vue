@@ -57,11 +57,47 @@
         @click="linkClick"
       >
         <template v-if="addLink">
-          <span class="nav-link-text" >{{ link.name }}</span>
+          <span class="nav-link-text d-flex align-items-center justify-content-between">
+            <span class="d-flex align-items-center overflow-prevent">
+              <b-icon
+                v-if="locallangImported"
+                icon="check-circle-fill"
+                variant="success"
+                class="mr-2 flex-shrink-0"
+              ></b-icon>
+              <span class="overflow-prevent">{{ link.name }}</span>
+            </span>
+            <b-icon
+              v-if="showImportState && !locallangImported"
+              v-b-tooltip.hover
+              :icon="importStateIcon"
+              :title="importStateTitle"
+              :variant="importStateVariant"
+              class="import-state-icon ml-2 flex-shrink-0"
+            ></b-icon>
+          </span>
         </template>
         <template v-else>
           <i :class="link.icon"></i>
-          <span class="nav-link-text">{{ link.name }}</span>
+          <span class="nav-link-text d-flex align-items-center justify-content-between">
+            <span class="d-flex align-items-center overflow-prevent">
+              <b-icon
+                v-if="locallangImported"
+                icon="check-circle-fill"
+                variant="success"
+                class="mr-2 flex-shrink-0"
+              ></b-icon>
+              <span class="overflow-prevent">{{ link.name }}</span>
+            </span>
+            <b-icon
+              v-if="showImportState && !locallangImported"
+              v-b-tooltip.hover
+              :icon="importStateIcon"
+              :title="importStateTitle"
+              :variant="importStateVariant"
+              class="import-state-icon ml-2 flex-shrink-0"
+            ></b-icon>
+          </span>
         </template>
       </a>
     </slot>
@@ -145,6 +181,25 @@ export default {
       }
       return false;
     },
+    showImportState() {
+      return Boolean(this.locallang) && !this.isMenu;
+    },
+    locallangImported() {
+      return Boolean(
+        this.locallang && (this.locallang.imported || this.locallang.translationsArray)
+      );
+    },
+    importStateIcon() {
+      return this.locallangImported ? "check-circle-fill" : "cloud-arrow-down";
+    },
+    importStateTitle() {
+      return this.locallangImported
+        ? "Already imported"
+        : "Imported when opened";
+    },
+    importStateVariant() {
+      return this.locallangImported ? "success" : "secondary";
+    },
   },
   methods: {
     addChild(item) {
@@ -209,6 +264,9 @@ export default {
 .overflow-prevent {
   overflow-x: hidden;
   text-overflow: ellipsis;
+}
+.import-state-icon {
+  min-width: 1rem;
 }
 .sidebar-menu-item {
   cursor: pointer;
