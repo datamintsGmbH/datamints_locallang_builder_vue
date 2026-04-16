@@ -161,7 +161,7 @@ export default {
         return {
             paginationLimit: 10,
             showOverlay: false,
-            loaded: false,
+            loaded: Boolean(this.locallang && this.locallang.translationsArray),
             loading: false,
             searchValue: "",
             perPage: 10,
@@ -230,8 +230,13 @@ export default {
         },
     },
     mounted() {
+        if (this.locallang.translationsArray) {
+            this.loaded = true;
+            return;
+        }
+
         // When we didn't fetch the data yet, we'll load it from backend
-        if (!this.loaded && !this.loading) {
+        if (!this.loading) {
             this.loadData();
         }
     },
