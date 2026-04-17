@@ -9,7 +9,11 @@
                 <h4 class="alert-heading">Critical error</h4>
                 <p>A fatal error has occurred. Please reload this browser tab and submit a new issue: <a href="https://github.com/datamintsGmbH/datamints_locallang_builder/issues" target="_blank">here</a>.</p>
             </b-alert>
-            <dashboard-content :locallang="selectedLocallang"></dashboard-content>
+            <dashboard-content
+                :locallang="selectedLocallang"
+                :recent-locallangs="recentLocallangs"
+                @locallang="onLocallangSelect"
+            ></dashboard-content>
         </div>
         <footer class="footer bg-gradient-primary p-2">
             <b-row>
@@ -38,6 +42,43 @@ import DashboardContent from "./components/App/DashboardContent.vue";
 Vue.config.devtools = true;
 Vue.use(BVToastPlugin);
 
+const RECENT_LOCALLANGS_STORAGE_KEY = "datamints_locallang_builder_recent_locallangs";
+const RECENT_LOCALLANGS_LIMIT = 5;
+
+const loadRecentLocallangEntries = () => {
+    if (typeof window === "undefined") {
+        return [];
+    }
+
+    try {
+        const recentLocallangs = window.localStorage.getItem(
+            RECENT_LOCALLANGS_STORAGE_KEY
+        );
+
+        if (!recentLocallangs) {
+            return [];
+        }
+
+        const parsedRecentLocallangs = JSON.parse(recentLocallangs);
+
+        return Array.isArray(parsedRecentLocallangs) ? parsedRecentLocallangs : [];
+    } catch (error) {
+        console.warn("Could not load recently opened locallang files.", error);
+        return [];
+    }
+};
+
+const saveRecentLocallangEntries = (recentLocallangs) => {
+    if (typeof window === "undefined") {
+        return;
+    }
+
+    window.localStorage.setItem(
+        RECENT_LOCALLANGS_STORAGE_KEY,
+        JSON.stringify(recentLocallangs)
+    );
+};
+
 export default {
     name: "App",
     components: {
@@ -48,11 +89,66 @@ export default {
         return {
             error: false,
             selectedLocallangUid: null,
+            recentLocallangEntries: loadRecentLocallangEntries(),
         };
     },
     methods: {
         onLocallangSelect(locallangUid) {
             this.selectedLocallangUid = locallangUid;
+            this.rememberLocallang(locallangUid);
+        },
+        rememberLocallang(locallangUid) {
+            if (locallangUid === null) {
+                return;
+            }
+
+            const locallangMeta = this.findLocallangMeta(locallangUid);
+
+            if (!locallangMeta) {
+                return;
+            }
+
+            const recentLocallangs = [
+                locallangMeta,
+                ...this.recentLocallangEntries.filter(
+                    (entry) => entry.path !== locallangMeta.path
+                ),
+            ].slice(0, RECENT_LOCALLANGS_LIMIT);
+
+            this.recentLocallangEntries = recentLocallangs;
+            saveRecentLocallangEntries(recentLocallangs);
+        },
+        findLocallangMeta(locallangUid) {
+            for (const extension of this.$store.getters.extensions) {
+                for (const locallang of Object.values(extension.locallangs)) {
+                    if (locallang.uid === parseInt(locallangUid)) {
+                        return {
+                            uid: locallang.uid,
+                            path: locallang.path,
+                            filename: locallang.filename,
+                            extensionName: extension.name,
+                        };
+                    }
+                }
+            }
+
+            return null;
+        },
+        resolveRecentLocallang(entry) {
+            for (const extension of this.$store.getters.extensions) {
+                for (const locallang of Object.values(extension.locallangs)) {
+                    if (locallang.path === entry.path || locallang.uid === entry.uid) {
+                        return {
+                            uid: locallang.uid,
+                            path: locallang.path,
+                            filename: locallang.filename,
+                            extensionName: extension.name,
+                        };
+                    }
+                }
+            }
+
+            return null;
         },
     },
     computed: {
@@ -64,6 +160,11 @@ export default {
         },
         version() {
             return this.$store.getters.config.version;
+        },
+        recentLocallangs() {
+            return this.recentLocallangEntries
+                .map((entry) => this.resolveRecentLocallang(entry))
+                .filter(Boolean);
         },
     },
     mounted() {
