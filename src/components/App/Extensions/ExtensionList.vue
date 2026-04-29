@@ -24,7 +24,7 @@
                     </b-card>
                 </template>
             </b-skeleton-wrapper>
-            <h6 class="navbar-heading p-0 text-muted ml-3">
+            <h6 class="navbar-heading p-0 text-muted ms-3">
                 Extensions
             </h6>
             <!-- 1st Level -->
@@ -49,29 +49,23 @@
         <template slot="links-after">
             <div v-if="!loading">
                 <hr class="my-3">
-                <h6 class="navbar-heading p-0 text-muted">Actions</h6>
-                <b-nav class="navbar-nav mb-md-3">
-                    <b-nav-item
-                        href="#"
-                        @click.prevent="onReloadClick"
-                    >
-                        <reload-icon class="mr-3" height="16px" width="16px"></reload-icon>
-                        <b-nav-text class="p-0">Invalidate caches</b-nav-text>
-                    </b-nav-item>
-                </b-nav>
+                <h6 class="navbar-heading p-0 text-muted ms-3">Actions</h6>
+
+                <div class="btn-group">
+                    <a class="btn btn-default" href="#" @click.prevent="onReloadClick">
+                        <reload-icon class="me-3" height="16px" width="16px"></reload-icon>
+                        Invalidate caches
+                    </a>
+                </div>
 
                 <hr class="my-3">
-                <h6 class="navbar-heading p-0 text-muted">Documentation</h6>
-
-                <b-nav class="navbar-nav mb-md-3">
-                    <b-nav-item
-                        :href="getDocumentationUrl" target="_blank"
-                    >
+                <h6 class="navbar-heading p-0 text-muted ms-3">Documentation</h6>
+                <div class="btn-group">
+                    <a class="btn btn-default" :href="getDocumentationUrl" target="_blank">
                         <i class="ni ni-spaceship"></i>
-                        <b-nav-text class="p-0">Getting started</b-nav-text>
-                    </b-nav-item>
-                </b-nav>
-
+                        Getting started
+                    </a>
+                </div>
             </div>
         </template>
     </side-bar>

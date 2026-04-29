@@ -30,7 +30,7 @@
               <b-img rounded class="avatar-img" data-dz-thumbnail />
             </div>
           </b-col>
-          <b-col class="ml--3">
+          <b-col class="ms--3">
             <h4 class="mb-1" data-dz-name>...</h4>
             <p class="small text-muted mb-0" data-dz-size>...</p>
           </b-col>

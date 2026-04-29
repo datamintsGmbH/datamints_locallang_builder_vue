@@ -10,7 +10,7 @@
             <b-tabs align="center" content-class="mt-4" fill justified pills vertical>
                 <b-tab active lazy>
                   <template v-slot:title>
-                    <i class="ni ni-favourite-28 mr-2"></i> Fluid (normal)
+                    <i class="ni ni-favourite-28 me-2"></i> Fluid (normal)
                   </template>
                   <b-card header="Fluid" header-bg-variant="success" header-class="font-weight-bold" header-text-variant="white">
                     <base-input input-classes="form-control-sm" label="Copy">
@@ -27,7 +27,7 @@
 
                 <b-tab lazy>
                   <template v-slot:title>
-                    <i class="ni ni-scissors mr-2"></i> Fluid (inline)
+                    <i class="ni ni-scissors me-2"></i> Fluid (inline)
                   </template>
                   <b-card header="Fluid inline" header-bg-variant="warning" header-class="font-weight-bold" header-text-variant="white">
                     <base-input input-classes="form-control-sm" label="Copy">
@@ -44,7 +44,7 @@
 
                 <b-tab lazy>
                   <template v-slot:title>
-                    <i class="ni ni-like-2 mr-2"></i> Extbase (php)
+                    <i class="ni ni-like-2 me-2"></i> Extbase (php)
                   </template>
                   <b-card header="Extbase" header-bg-variant="danger" header-class="font-weight-bold" header-text-variant="white">
                         <base-input input-classes="form-control-sm" label="Copy">
@@ -61,7 +61,7 @@
                 </b-tab>
                 <b-tab lazy>
                   <template v-slot:title>
-                    <i class="ni ni-like-2 mr-2"></i> Plain
+                    <i class="ni ni-like-2 me-2"></i> Plain
                   </template>
                   <b-card header="Plain" header-bg-variant="primary" header-class="font-weight-bold" header-text-variant="white">
                         <base-input input-classes="form-control-sm" label="Copy">

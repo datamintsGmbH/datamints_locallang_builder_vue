@@ -1,7 +1,6 @@
 <template>
   <!-- Left div because b-navbar does not trigger on mouseenter / mouseleave events -->
-  <div class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-primary bg-white"
-       :data="backgroundColor">
+  <div class="sidenav">
     <div class="scrollbar-inner" ref="sidebarScrollArea">
       <div class="sidenav-header d-flex align-items-center">
         <b-navbar-brand href="#">
@@ -85,24 +84,6 @@ export default {
       default: "CT",
       description: "Sidebar short title",
     },
-    backgroundColor: {
-      type: String,
-      default: "vue",
-      validator: (value) => {
-        let acceptedValues = [
-          "",
-          "vue",
-          "blue",
-          "green",
-          "orange",
-          "red",
-          "primary",
-        ];
-        return acceptedValues.indexOf(value) !== -1;
-      },
-      description:
-        "Sidebar background color (vue|blue|green|orange|red|primary)",
-    },
     sidebarLinks: {
       type: Array,
       default: () => [],
@@ -140,3 +121,15 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+    .sidenav{
+        background: var(--tree-bg);
+        width: 250px;
+        overflow-y: auto;
+    }
+
+    .navbar-nav {
+        list-style: none;
+        padding-left: 0;
+    }
+</style>

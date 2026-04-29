@@ -1,32 +1,32 @@
 <template>
     <div id="app">
         <notifications></notifications>
-        <!-- todo - rename this -->
-        <extension-list @locallang="onLocallangSelect"></extension-list>
+        <main class="main">
+            <extension-list @locallang="onLocallangSelect"></extension-list>
 
-        <div class="main-content">
-            <b-alert v-if="error" show variant="danger">
-                <h4 class="alert-heading">Critical error</h4>
-                <p>A fatal error has occurred. Please reload this browser tab and submit a new issue: <a href="https://github.com/datamintsGmbH/datamints_locallang_builder/issues" target="_blank">here</a>.</p>
-            </b-alert>
-            <dashboard-content
-                :locallang="selectedLocallang"
-                :recent-locallangs="recentLocallangs"
-                @locallang="onLocallangSelect"
-            ></dashboard-content>
-        </div>
-        <footer class="footer bg-gradient-primary p-2">
-            <b-row>
-                <b-col>
-                    <small class="text-white float-right d-flex align-items-center">
-                        <a v-b-tooltip.hover :href="getGitUrl" class="text-white" target="_blank" title="Open Github">
-                            <logo-github-icon class="mr-4" height="16px" width="16px"></logo-github-icon>
-                        </a>
-                        © Mark Weisgerber - version {{ version }}</small>
-                </b-col>
-            </b-row>
-        </footer>
-
+            <div class="main-content">
+                <b-alert v-if="error" show variant="danger">
+                    <h4 class="alert-heading">Critical error</h4>
+                    <p>A fatal error has occurred. Please reload this browser tab and submit a new issue: <a href="https://github.com/datamintsGmbH/datamints_locallang_builder/issues" target="_blank">here</a>.</p>
+                </b-alert>
+                <dashboard-content
+                    :locallang="selectedLocallang"
+                    :recent-locallangs="recentLocallangs"
+                    @locallang="onLocallangSelect"
+                ></dashboard-content>
+            </div>
+            <footer class="footer bg-gradient-primary p-2">
+                <b-row>
+                    <b-col>
+                        <small class="text-white float-right d-flex align-items-center">
+                            <a v-b-tooltip.hover :href="getGitUrl" class="text-white" target="_blank" title="Open Github">
+                                <logo-github-icon class="mr-4" height="16px" width="16px"></logo-github-icon>
+                            </a>
+                            © Mark Weisgerber - version {{ version }}</small>
+                    </b-col>
+                </b-row>
+            </footer>
+        </main>
     </div>
 </template>
 
@@ -195,6 +195,14 @@ html,
 body {
     height: 100%;
     overflow-y: scroll;
+}
+
+.main {
+    display:flex;
+}
+
+.main-content {
+    width: 100%;
 }
 
 .footer {

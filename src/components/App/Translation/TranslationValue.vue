@@ -126,7 +126,7 @@
                             @click="apiAutoTranslate"
                         >
                             <b-icon icon="cloud-fill"></b-icon>
-                            <b-icon class="ml-2" icon="chevron-double-right"></b-icon>
+                            <b-icon class="ms-2" icon="chevron-double-right"></b-icon>
                         </b-button>
                         <b-spinner
                             v-if="isAutoTranslating"

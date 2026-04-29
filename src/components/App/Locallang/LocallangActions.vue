@@ -1,6 +1,6 @@
 <template>
     <div>
-        <small v-if="!isLoaded" class="text-muted mr-2">Importing file...</small>
+        <small v-if="!isLoaded" class="text-muted me-2">Importing file...</small>
         <template v-else>
         <!-- Add new Entity -->
         <translation-add

@@ -2,17 +2,17 @@
     <tr class="" role="row">
         <td aria-colindex="1" class="" role="cell">
             <key-icon class="text-primary" height="16px" width="16px"></key-icon>
-            <span class="font-weight-600 name ml-2 mb-0 text-sm">{{ translationDTO.key }}</span>
+            <span class="font-weight-600 name ms-2 mb-0 text-sm">{{ translationDTO.key }}</span>
         </td>
         <td aria-colindex="2" class="" role="cell">
-            <badge :type="translationDTO.statusType" class="mr-4">
+            <badge :type="translationDTO.statusType" class="me-4">
                 <span class="status">{{ translationDTO.status }}</span>
 
             </badge>
         </td>
         <td aria-colindex="3" class="" role="cell">
             <div class="d-flex align-items-center">
-                <span class="completion mr-2">{{ completedPercentage }}%</span>
+                <span class="completion me-2">{{ completedPercentage }}%</span>
                 <div>
                     <base-progress :type="translationDTO.statusType" :value="completedPercentage"/>
                 </div>

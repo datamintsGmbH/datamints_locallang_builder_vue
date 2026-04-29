@@ -71,7 +71,7 @@
                                 >
                                     <span class="d-flex align-items-center">
                                         <file-xml-icon height="16px" width="16px"/>
-                                        <span class="ml-2">{{ recentLocallang.filename }}</span>
+                                        <span class="ms-2">{{ recentLocallang.filename }}</span>
                                     </span>
                                     <small class="text-muted">{{ recentLocallang.extensionName }}</small>
                                 </b-list-group-item>

@@ -119,7 +119,7 @@
             <div class="d-flex justify-content-between align-items-center">
         <span>
           <file-xml-icon height="18px" width="18px"/>
-          <strong class="text-muted ml-2">File: </strong>
+          <strong class="text-muted ms-2">File: </strong>
           <u>{{ locallang.filename }}</u>
         </span>
                 <!-- Actions-Menu -->

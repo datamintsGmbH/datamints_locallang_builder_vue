@@ -44,7 +44,7 @@
               @click="onRename"
           >
             Ok
-            <b-icon class="ml-2" icon="check-circle" variant="white"></b-icon>
+            <b-icon class="ms-2" icon="check-circle" variant="white"></b-icon>
           </b-button>
         </span>
       </b-overlay>
