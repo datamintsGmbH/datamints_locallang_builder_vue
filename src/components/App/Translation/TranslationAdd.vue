@@ -5,7 +5,7 @@
     >
         <b-icon aria-hidden="true" icon="plus"></b-icon>
         New key
-        <b-modal
+        <modal
             :id="modalId"
             v-model="modalActive"
             :hide-footer="showOverlay"
@@ -183,7 +183,7 @@
                     </b-col>
                 </b-row>
             </b-overlay>
-        </b-modal>
+        </modal>
     </base-button>
     <!-- Modal -->
 

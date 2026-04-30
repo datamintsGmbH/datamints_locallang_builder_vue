@@ -6,7 +6,7 @@
                  @click="onClickDelete"
     >
         <delete-forever-icon height="11px" width="11px"/>
-        <b-modal
+        <modal
             v-model="modalActive"
             :hide-footer="showOverlay"
             title="Are you sure?"
@@ -17,7 +17,7 @@
                     The complete entry for the key "{{ translation.translationKey }}" including all translations will be deleted. Are you sure you wanna do this?
                 </b-alert>
             </b-overlay>
-        </b-modal>
+        </modal>
     </base-button>
 
 </template>

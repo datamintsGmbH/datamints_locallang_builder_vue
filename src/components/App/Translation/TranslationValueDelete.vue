@@ -2,7 +2,7 @@
     <b-dropdown-item-button id="buttonId" href="#" variant="danger" @click="onClickDelete">
         <delete-forever-icon height="16px" width="16px"/>
         Delete only the translation "{{ translationValue.ident }}"
-        <b-modal
+        <modal
             v-model="modalActive"
             :hide-footer="showOverlay"
             title="Are you sure?"
@@ -13,7 +13,7 @@
                     All your data for the Translation <br><strong>{{ translationValue.ident }}</strong> <br>with the value <br><strong>{{ translationValue.value }}</strong> <br>will be lost. It's possible to recover your deleted data from database if you wish.
                 </b-alert>
             </b-overlay>
-        </b-modal>
+        </modal>
     </b-dropdown-item-button>
 </template>
 

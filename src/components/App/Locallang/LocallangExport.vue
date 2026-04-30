@@ -3,7 +3,7 @@
         <floppy-disk-icon height="15px" width="15px"></floppy-disk-icon>
         Export
         <!-- Modal -->
-        <b-modal :id="modalId" v-model="modalActive" :hide-footer="showOverlay" cancel-variant="light" lazy size="lg" title="Export" @ok="handleOk">
+        <modal :id="modalId" v-model="modalActive" :hide-footer="showOverlay" cancel-variant="light" lazy size="lg" title="Export" @ok="handleOk">
             <b-overlay :show="showOverlay" rounded="sm">
                 <b-row>
                     <b-col>
@@ -74,7 +74,7 @@
                     </b-col>
                 </b-row>
             </b-overlay>
-        </b-modal>
+        </modal>
     </base-button>
 </template>
 <script>
