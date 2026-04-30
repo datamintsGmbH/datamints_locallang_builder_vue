@@ -74,12 +74,12 @@
                                             :state="tagsAreValid"
                                             :tag-validator="tagValidator"
                                             input-id="tags-separators"
-                                            invalidTagText="The entered language code was not found"
+                                            :invalid-tag-text="providerInvalidTagText"
                                             placeholder="Separate by space, comma or semicolon (e.g. de,es,ru)"
                                             remove-on-delete
                                             separator=" ,;"
                                             tag-variant="primary"
-                                            @tag-state="onTagState"
+                                            @tag-state="onProviderTagState"
                                         >
                                         </b-form-tags>
                                         <!-- Quick Select -->
@@ -190,10 +190,12 @@
 </template>
 
 <script>
+import providerLanguageValidation from "../../../mixins/providerLanguageValidation";
 import * as utility from "../../../scripts/Utility";
 
 export default {
     name: "TranslationAdd",
+    mixins: [providerLanguageValidation],
     props: ["locallang", "languagesInUse", "rerender"],
     mounted() {
         // switch the flag to false, when there is no auto-translate provider configured
@@ -237,7 +239,7 @@ export default {
          */
         tagsAreValid() {
             if (!this.showFormValidation) return null;
-            return true;
+            return this.selectedLanguagesAreValid;
         },
         hasAtLeastOneLanguageInUse() {
             return this.languagesInUse().length > 0;
@@ -245,9 +247,6 @@ export default {
     },
     data() {
         return {
-            validTags: [],
-            invalidTags: [],
-            duplicateTags: [],
             newObjectAutoTranslate: true,
             newObjectIsApproved: true,
             newObjectLanguages: this.languagesInUse(),
@@ -286,28 +285,9 @@ export default {
         getLanguageIcon(languageCode) {
             return utility.getLanguageSvg(languageCode);
         },
-        /**
-         * Sets the states for the different tags
-         * @param valid
-         * @param invalid
-         * @param duplicate
-         */
-        onTagState(valid, invalid, duplicate) {
-            this.validTags = valid;
-            this.invalidTags = invalid;
-            this.duplicateTags = duplicate;
-        },
-        /**
-         * Validates a tag on the fly while entering. Otherwise its not possible to add a tag
-         */
-        tagValidator(tag) {
-            return (
-                this.languages.filter((language) => language.key === tag).length > 0
-            );
-        },
         getLanguageNameByKey(key) {
             let matches = this.languages.filter(
-                (language) => language.key === key.toLowerCase()
+                (language) => this.normalizeLanguageCode(language.key) === this.normalizeLanguageCode(key)
             );
             if (matches.length > 0) {
                 return matches[0].trans;
@@ -349,7 +329,7 @@ export default {
          * Called before executing the submit action and triggers the form-validation. Additionally we check, if the tags are valid
          */
         checkFormValidity() {
-            const valid = (this.$refs.form.checkValidity()); // dont know why the form does not contain validation for the tag-component. Its displayed but not mentioned here
+            const valid = this.$refs.form.checkValidity() && this.selectedLanguagesAreValid; // dont know why the form does not contain validation for the tag-component. Its displayed but not mentioned here
             this.showFormValidation = true;
             this.formIsValid = valid;
             return (valid);
