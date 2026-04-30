@@ -8,8 +8,8 @@
 @import "../core/alerts/alert-notify";
 
 // Avatars
-@import "../core/avatars/avatar";
-@import "../core/avatars/avatar-group";
+//@import "../core/avatars/avatar";
+//@import "../core/avatars/avatar-group";
 
 // Badges
 @import "../core/badges/badge";
@@ -20,12 +20,6 @@
 // Breadcrumbs
 @import "../core/breadcrumbs/breadcrumb";
 
-// Buttons
-@import "../core/buttons/button";
-@import "../core/buttons/button-brand";
-@import "../core/buttons/button-group";
-@import "../core/buttons/button-icon";
-
 // Cards
 @import "../core/cards/card";
 @import "../core/cards/card-animations";
@@ -35,11 +29,6 @@
 @import "../core/cards/card-profile";
 @import "../core/cards/card-stats";
 
-// Charts
-@import "../core/charts/chart";
-
-// Close
-@import "../core/close/close";
 
 // Collapse
 @import "../core/collapse/accordion";
@@ -91,9 +80,6 @@
 @import "../core/medias/media";
 @import "../core/medias/media-comment";
 
-// Modals
-@import "../core/modals/modal";
-
 // Navbars
 @import "../core/navbars/navbar";
 @import "../core/navbars/navbar-floating";
@@ -138,5 +124,4 @@
 @import "../core/type/article";
 @import "../core/type/display";
 @import "../core/type/heading";
-
 

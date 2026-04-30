@@ -19,7 +19,7 @@
         <b-icon icon="pencil-square" variant="primary"></b-icon> Rename
       </template>
       <b-overlay :show="showOverlay" rounded="sm">
-        <b-form-group label="Enter new key name">
+        <b-form-group label-class="form-label t3js-formengine-label" label="Enter new key name">
           <b-form-input
               v-model="newRenameKey"
               :state="state"

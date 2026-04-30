@@ -17,7 +17,7 @@
                     </b-input-group>
                 </b-col>
                 <b-col>
-                    <b-form-group
+                    <b-form-group label-class="form-label t3js-formengine-label"
                         class="mb-0"
                         label="Sort"
                         label-align-sm="right"
@@ -30,7 +30,8 @@
                                 id="sort-by-select"
                                 v-model="sortBy"
                                 :options="sortOptions"
-                                class="w-75"
+                                class="w-75 form-select"
+
                             >
                                 <template #first>
                                     <option value="">-- none --</option>
@@ -40,7 +41,7 @@
                             <b-form-select
                                 v-model="sortDesc"
                                 :disabled="!sortBy"
-                                class="w-25"
+                                class="w-25 form-select"
                                 size="sm"
                             >
                                 <option :value="false">ASC</option>
@@ -62,7 +63,7 @@
                     ></b-pagination>
                 </b-col>
                 <b-col md>
-                    <b-form-group
+                    <b-form-group label-class="form-label t3js-formengine-label"
                         class="mb-0"
                         label="Per page"
                         label-align-sm="right"
@@ -73,6 +74,7 @@
                         label-size="sm"
                     >
                         <b-form-select
+                            class="form-select"
                             id="per-page-select"
                             v-model="perPage"
                             :options="pageOptions"

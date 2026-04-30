@@ -15,7 +15,7 @@
                         <div v-if="!hideHeader" :class="headerClassesNormalized">
                             <slot name="header">
                                 <h5 class="modal-title">
-                                    {{ title }}
+                                    <b>{{ title }}</b>
                                 </h5>
                             </slot>
 
@@ -372,8 +372,15 @@ body.dm-modal-open {
         background: var(--module-bg);
     }
 
+    .modal-footer {
+        gap: .75rem;
+        overflow: hidden;
+        padding: .5rem 1rem;
+    }
+
     .modal-body {
         overflow-y: auto;
+        padding: .5rem 1rem;
     }
 
     .btn-close {

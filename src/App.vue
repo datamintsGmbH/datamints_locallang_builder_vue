@@ -190,6 +190,9 @@ export default {
 </script>
 
 <style lang="scss">
+
+</style>
+<style lang="scss">
 /* Otherwise theres no scrolling allowed in the iframe, because we're not using the be:container-viewhelper */
 html,
 body {
@@ -217,4 +220,13 @@ body {
 .tooltip {
     pointer-events: none;
 }
+
+.input-group-prepend {
+    >.input-group-text {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 100%;
+    }
+}
+
 </style>

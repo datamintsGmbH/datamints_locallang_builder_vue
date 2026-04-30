@@ -51,17 +51,3 @@
     background-color: theme-color("secondary");
     color: color-yiq(theme-color("secondary"));
 }
-
-
-// Badge spacing inside a btn with some text
-
-.btn {
-    .badge {
-        &:not(:first-child) {
-            margin-left: .5rem;
-        }
-        &:not(:last-child) {
-            margin-right: .5rem;
-        }
-    }
-}

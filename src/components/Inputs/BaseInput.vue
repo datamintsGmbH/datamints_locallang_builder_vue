@@ -1,6 +1,6 @@
 <template>
   <validation-provider :rules="rules" :name="name" v-bind="$attrs" v-slot="{errors, valid, invalid, validated}">
-    <b-form-group>
+    <b-form-group label-class="form-label t3js-formengine-label">
       <slot name="label">
         <label v-if="label" :class="labelClasses">
           {{label}}

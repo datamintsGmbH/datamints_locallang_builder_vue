@@ -9,7 +9,7 @@
           <span class="position-relative">
             <key-icon class="text-white" height="16px" width="16px"></key-icon>
 
-            <strong>Key: </strong>
+            <strong class="ms-2">Key: </strong>
               <!-- Rename Function -->
             <TranslationRename :translation="translation"/>
 

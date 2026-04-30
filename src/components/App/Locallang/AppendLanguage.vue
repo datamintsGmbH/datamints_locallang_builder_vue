@@ -40,15 +40,15 @@
                                 </template>
                                 <b-row>
                                     <b-col cols="6">
-                                        <b-form-group label="Auto-Translate">
+                                        <b-form-group label-class="form-label t3js-formengine-label" label="Auto-Translate">
                                             <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
                                             <div v-else class="text-danger">No translation provider defined</div>
 
                                         </b-form-group>
                                     </b-col>
                                     <b-col cols="6">
-                                        <b-form-group label="XML-Space">
-                                            <b-form-select v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
+                                        <b-form-group label-class="form-label t3js-formengine-label" label="XML-Space">
+                                            <b-form-select class="form-select" v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
                                         </b-form-group>
                                     </b-col>
                                 </b-row>

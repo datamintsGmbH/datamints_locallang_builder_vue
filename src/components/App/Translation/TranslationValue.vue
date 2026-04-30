@@ -55,7 +55,7 @@
                         <b-row>
                             <b-col lg="6" sm="12">
                                 <!-- XML-Space -->
-                                <b-form-group content-cols-lg="12" content-cols-sm label-class="py-0" label-cols="12"
+                                <b-form-group label-class="form-label t3js-formengine-label py-0" content-cols-lg="12" content-cols-sm label-cols="12"
                                 >
                                     <template #label>
                                         <small>
@@ -64,7 +64,7 @@
 
                                     </template>
                                     <p>
-                                        <b-form-select v-model="translationValue.xmlSpace" :options="xmlSpaceOptions" size="sm" @input="startSaving"></b-form-select>
+                                        <b-form-select class="form-select" v-model="translationValue.xmlSpace" :options="xmlSpaceOptions" size="sm" @input="startSaving"></b-form-select>
                                     </p>
                                 </b-form-group>
 
@@ -72,7 +72,7 @@
                             </b-col>
                             <!-- Is approved -->
                             <b-col lg="6" sm="12">
-                                <b-form-group content-cols-lg="12" content-cols-sm label-class="py-0" label-cols="12">
+                                <b-form-group label-class="form-label t3js-formengine-label py-0" content-cols-lg="12" content-cols-sm label-cols="12">
                                     <template #label>
                                         <small>
                                             Is approved

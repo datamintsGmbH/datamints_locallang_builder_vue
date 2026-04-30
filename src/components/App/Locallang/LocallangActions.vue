@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="btn-toolbar">
         <small v-if="!isLoaded" class="text-muted me-2">Importing file...</small>
         <template v-else>
         <!-- Add new Entity -->

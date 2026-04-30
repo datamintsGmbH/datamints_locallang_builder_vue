@@ -20,7 +20,6 @@ locale.use(lang);
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // asset imports
-import '@/assets/sass/argon.scss';
 import '@/assets/css/nucleo/css/nucleo.css';
 import { extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';

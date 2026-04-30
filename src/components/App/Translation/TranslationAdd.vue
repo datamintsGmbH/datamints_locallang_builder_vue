@@ -26,10 +26,10 @@
                 </b-row>
                 <b-row>
                     <b-col lg="8">
-                        <b-card header="Required fields" header-class="font-weight-bold" header-text-variant="primary">
+                        <b-card header="Required fields" header-class="font-weight-bold">
                             <b-form ref="form" :validated="formIsValid" novalidate @submit.stop.prevent="handleSubmit">
                                 <!-- Input: Key name -->
-                                <b-form-group label="Enter key name">
+                                <b-form-group label-class="form-label t3js-formengine-label" label="Enter key name">
                                     <b-form-input
                                         v-model="newObjectKey"
                                         :state="keyIsValid"
@@ -42,7 +42,7 @@
                                     </b-form-invalid-feedback>
                                 </b-form-group>
                                 <!-- Input: Default Translation -->
-                                <b-form-group label="Enter default value for language 'EN'">
+                                <b-form-group label-class="form-label t3js-formengine-label" label="Enter default value for language 'EN'">
                                     <b-form-textarea
                                         v-model="newObjectValue"
                                         :state="valueIsValid"
@@ -63,7 +63,7 @@
                         <b-card>
                             <template #header>
                                 <translation-symbols-icon class="pr-2" height="18px" width="18px"></translation-symbols-icon>
-                                <span class="text-primary font-weight-bold">Other languages</span>
+                                <span class="ms-1 font-weight-bold">Other languages</span>
                             </template>
                             <b-row>
                                 <b-col>
@@ -158,24 +158,24 @@
                         <b-card>
                             <template #header>
                                 <settings-gear-icon class="pr-2" height="23px" width="23px"></settings-gear-icon>
-                                <span class="text-primary font-weight-bold">Options</span>
+                                <span class="ms-1 font-weight-bold">Options</span>
                             </template>
                             <b-row>
                                 <b-col cols="6">
-                                    <b-form-group label="Auto-Translate">
+                                    <b-form-group label-class="form-label t3js-formengine-label" label="Auto-Translate">
                                         <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
                                         <div v-else class="text-danger">No translation provider defined</div>
 
                                     </b-form-group>
                                 </b-col>
                                 <b-col cols="6">
-                                    <b-form-group label="Is approved">
+                                    <b-form-group label-class="form-label t3js-formengine-label" label="Is approved">
                                         <base-switch v-model="newObjectIsApproved" name="isapproved"/>
                                     </b-form-group>
                                 </b-col>
                                 <b-col cols="6">
-                                    <b-form-group label="XML-Space">
-                                        <b-form-select v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
+                                    <b-form-group label-class="form-label t3js-formengine-label" label="XML-Space">
+                                        <b-form-select class="form-select" v-model="newObjectXmlSpace" :options="xmlSpaceOptions" size="sm"></b-form-select>
                                     </b-form-group>
                                 </b-col>
                             </b-row>

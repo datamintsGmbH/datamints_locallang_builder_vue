@@ -16,7 +16,7 @@
                         <b-card header="Configuration">
                             <form ref="form">
                                 <!-- Filetype -->
-                                <b-form-group content-cols-lg="7" content-cols-sm label-class="pt-0" label-cols-lg="4" label-cols-sm="4">
+                                <b-form-group label-class="form-label t3js-formengine-label" content-cols-lg="7" content-cols-sm label-class="pt-0" label-cols-lg="4" label-cols-sm="4">
                                     <template #label>
                                         <b-link v-b-tooltip.hover class="text-dark" href="#disabled" title="Choose your preferred output format">Filetype</b-link>
                                     </template>
@@ -28,7 +28,7 @@
                                     </b-form-radio-group>
                                 </b-form-group>
                                 <!-- Target -->
-                                <b-form-group content-cols-lg="7" content-cols-sm label-class="pt-0" label-cols-lg="4" label-cols-sm="4">
+                                <b-form-group label-class="form-label t3js-formengine-label" content-cols-lg="7" content-cols-sm label-class="pt-0" label-cols-lg="4" label-cols-sm="4">
                                     <template #label>
                                         <b-link v-b-tooltip.hover class="text-dark" href="#disabled"
                                                 title="Select the output target. Its the easiest way to overwrite the current locallang-file, but it's also possible to export to fileadmin/locallang-builder/">
@@ -43,7 +43,7 @@
                                     </b-form-radio-group>
                                 </b-form-group>
                                 <!-- Create Backup -->
-                                <b-form-group v-if="overwriteChosen" content-cols-lg="7" content-cols-sm label-class="pt-0"
+                                <b-form-group label-class="form-label t3js-formengine-label" v-if="overwriteChosen" content-cols-lg="7" content-cols-sm label-class="pt-0"
                                               label-cols-lg="4" label-cols-sm="4">
                                     <template #label>
                                         <b-link v-b-tooltip.hover class="text-dark" href="#disabled"

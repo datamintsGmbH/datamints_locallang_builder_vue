@@ -2,7 +2,7 @@
   <!-- Left div because b-navbar does not trigger on mouseenter / mouseleave events -->
   <div class="sidenav">
     <div class="scrollbar-inner" ref="sidebarScrollArea">
-      <div class="sidenav-header d-flex align-items-center">
+      <div class="sidenav-header d-flex align-items-center justify-content-center pt-1">
         <b-navbar-brand href="#">
           <svg version="1.1" width="129px" height="56px" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               viewBox="0 0 283.5 118.2" enable-background="new 0 0 283.5 118.2" xml:space="preserve">
