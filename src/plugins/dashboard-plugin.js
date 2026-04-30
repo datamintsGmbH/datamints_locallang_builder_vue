@@ -20,6 +20,7 @@ locale.use(lang);
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // asset imports
+import '@/assets/css/legacy-bootstrapvue-forms.css';
 import '@/assets/css/nucleo/css/nucleo.css';
 import { extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';

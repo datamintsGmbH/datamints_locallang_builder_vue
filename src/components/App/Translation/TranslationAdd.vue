@@ -37,7 +37,7 @@
                                         required
                                         trim
                                     ></b-form-input>
-                                    <b-form-invalid-feedback id="input-live-feedback">
+                                    <b-form-invalid-feedback v-if="keyIsValid === false" id="input-live-feedback">
                                         The entered key is not valid or already existing
                                     </b-form-invalid-feedback>
                                 </b-form-group>
@@ -52,7 +52,7 @@
                                         rows="3"
                                         spellcheck="false"
                                     ></b-form-textarea>
-                                    <b-form-invalid-feedback>
+                                    <b-form-invalid-feedback v-if="valueIsValid === false">
                                         No value given
                                     </b-form-invalid-feedback>
                                 </b-form-group>
