@@ -21,8 +21,26 @@ export default {
     providerSupportedTargetLanguages() {
       return this.$store.getters.providerSupportedTargetLanguages;
     },
+    providerStatusLoading() {
+      return this.$store.getters.providerStatusLoading;
+    },
     hasProviderLanguageRestrictions() {
       return this.isAllowedProvider && this.providerSupportedTargetLanguages.length > 0;
+    },
+    providerSupportedLanguageRows() {
+      const languageMap = this.languages.reduce((mappedLanguages, language) => {
+        mappedLanguages[this.normalizeLanguageCode(language.key)] = {
+          code: language.key,
+          name: language.trans
+        };
+
+        return mappedLanguages;
+      }, {});
+
+      return this.providerSupportedTargetLanguages
+        .map((languageCode) => languageMap[this.normalizeLanguageCode(languageCode)] || null)
+        .filter(Boolean)
+        .sort((firstLanguage, secondLanguage) => firstLanguage.name.localeCompare(secondLanguage.name));
     },
     normalizedLanguageKeys() {
       return this.languages.map((language) => this.normalizeLanguageCode(language.key));

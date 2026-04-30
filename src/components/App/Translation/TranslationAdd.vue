@@ -138,14 +138,10 @@
                                             </b-popover>
                                         </b-input-group-append>
                                     </b-input-group>
-                                    <b-alert class="p-2" show size="sm" variant="info">
-                                        <span class="alert-icon pl-2"><translation-symbols-icon height="18px" width="18px"></translation-symbols-icon></span>
-
-                                        Find a list of available codes
-                                        <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>.
-
-
-                                    </b-alert>
+                                    <provider-supported-languages
+                                        :languages="providerSupportedLanguageRows"
+                                        :provider-name="providerDisplayName"
+                                    />
                                     <b-alert class="p-2" show size="sm" variant="warning">
                                         <span class="alert-icon pl-2"><translation-symbols-icon height="18px" width="18px"></translation-symbols-icon></span>
                                         The English data record is created automatically and cannot be taken into account.
@@ -162,7 +158,7 @@
                             </template>
                             <b-row>
                                 <b-col cols="6">
-                                    <b-form-group label-class="form-label t3js-formengine-label" label="Auto-Translate">
+                                    <b-form-group label-class="form-label t3js-formengine-label" label="Use auto-translate provider">
                                         <base-switch v-if="isAllowedProvider" v-model="newObjectAutoTranslate" name="autotranslate"/>
                                         <div v-else class="text-danger">No translation provider defined</div>
 
@@ -190,12 +186,16 @@
 </template>
 
 <script>
+import ProviderSupportedLanguages from "../ProviderSupportedLanguages.vue";
 import providerLanguageValidation from "../../../mixins/providerLanguageValidation";
 import * as utility from "../../../scripts/Utility";
 
 export default {
     name: "TranslationAdd",
     mixins: [providerLanguageValidation],
+    components: {
+        ProviderSupportedLanguages,
+    },
     props: ["locallang", "languagesInUse", "rerender"],
     mounted() {
         // switch the flag to false, when there is no auto-translate provider configured

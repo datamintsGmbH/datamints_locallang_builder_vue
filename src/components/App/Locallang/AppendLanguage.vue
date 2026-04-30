@@ -32,6 +32,10 @@
                                 >
                                 </b-form-tags>
                             </b-input-group>
+                            <provider-supported-languages
+                                :languages="providerSupportedLanguageRows"
+                                :provider-name="providerDisplayName"
+                            />
                             <hr/>
                             <b-card>
                                 <template #header>
@@ -97,20 +101,22 @@
 
 </template>
 <script>
+import ProviderSupportedLanguages from "../ProviderSupportedLanguages.vue";
 import AppendLanguageKey from "./AppendLanguageKey";
 import providerLanguageValidation from "../../../mixins/providerLanguageValidation";
 
 export default {
     name: "append-language",
     mixins: [providerLanguageValidation],
+    components: {
+        AppendLanguageKey,
+        ProviderSupportedLanguages
+    },
     mounted() {
         // switch the flag to false, when there is no auto-translate provider configured
         if (!this.isAllowedProvider) {
             this.newObjectAutoTranslate = false;
         }
-    },
-    components: {
-        AppendLanguageKey
     },
     props: {
         locallang: {
