@@ -166,6 +166,9 @@ export default {
         },
     },
     mounted() {
+        if (this.$store.getters.config.provider) {
+            this.$store.dispatch("fetchProviderStatus");
+        }
         this.$store.watch(
             (state) => state.extension.toastMessages,
             (toastMessages) => {
