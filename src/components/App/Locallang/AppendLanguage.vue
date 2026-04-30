@@ -23,12 +23,12 @@
                                     :state="tagsAreValid"
                                     :tag-validator="tagValidator"
                                     input-id="tags-separators"
-                                    invalidTagText="The entered language code was not found"
+                                    :invalid-tag-text="providerInvalidTagText"
                                     placeholder="Separate by space, comma or semicolon"
                                     remove-on-delete
                                     separator=" ,;"
                                     tag-variant="primary"
-                                    @tag-state="onTagState"
+                                    @tag-state="onProviderTagState"
                                 >
                                 </b-form-tags>
                             </b-input-group>
@@ -98,9 +98,11 @@
 </template>
 <script>
 import AppendLanguageKey from "./AppendLanguageKey";
+import providerLanguageValidation from "../../../mixins/providerLanguageValidation";
 
 export default {
     name: "append-language",
+    mixins: [providerLanguageValidation],
     mounted() {
         // switch the flag to false, when there is no auto-translate provider configured
         if (!this.isAllowedProvider) {
@@ -154,7 +156,7 @@ export default {
          */
         tagsAreValid() {
             if (!this.showFormValidation) return null;
-            return this.newObjectLanguages.length > 0
+            return this.newObjectLanguages.length > 0 && this.selectedLanguagesAreValid
         },
         isAllowedProvider: function () {
             return this.$store.getters.config.provider.length > 0;
@@ -165,11 +167,6 @@ export default {
             this.constructCache = this.constructTableObject();
             this.modalActive = true;
 
-        },
-        onTagState(valid, invalid, duplicate) {
-            this.validTags = valid;
-            this.invalidTags = invalid;
-            this.duplicateTags = duplicate;
         },
         constructTableObject() {
             var tableObject = [];
@@ -203,11 +200,6 @@ export default {
             }
             return null;
         },
-        tagValidator(tag) {
-            return (
-                this.languages.filter((language) => language.key === tag).length > 0
-            );
-        },
         handleOk(bvModalEvt) {
             // Prevent modal from closing
             bvModalEvt.preventDefault();
@@ -215,7 +207,7 @@ export default {
             this.handleSubmit();
         },
         checkFormValidity() {
-            const valid = (this.$refs.formappend.checkValidity() && this.newObjectLanguages.length > 0);
+            const valid = this.$refs.formappend.checkValidity() && this.newObjectLanguages.length > 0 && this.selectedLanguagesAreValid;
             this.showFormValidation = true;
             this.formIsValid = valid;
             return valid;
