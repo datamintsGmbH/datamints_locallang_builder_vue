@@ -94,8 +94,6 @@
 <script>
 import Locallang from "./Locallang/Locallang";
 import ExcludedExtensions from "./ExcludedExtensions";
-import axios from "axios";
-import * as proxy from "../../scripts/Proxy";
 
 export default {
     props: ["locallang", "recentLocallangs"],
@@ -103,20 +101,15 @@ export default {
         Locallang,
         ExcludedExtensions,
     },
-    data: function () {
-        return {
-            providerStatus: null,
-            providerStatusLoading: false,
-        };
-    },
-    mounted: function () {
-        if (this.getProviderName) {
-            this.fetchProviderStatus();
-        }
-    },
     computed: {
         getProviderName: function () {
             return this.$store.getters.config.provider;
+        },
+        providerStatus: function () {
+            return this.$store.getters.providerStatus;
+        },
+        providerStatusLoading: function () {
+            return this.$store.getters.providerStatusLoading;
         },
         hasRecentLocallangs: function () {
             return this.recentLocallangs.length > 0;
@@ -195,26 +188,6 @@ export default {
         },
     },
     methods: {
-        fetchProviderStatus: async function () {
-            this.providerStatusLoading = true;
-
-            try {
-                const response = await axios.get(proxy.apiPath("api-provider-status"));
-                this.providerStatus = response && response.data ? response.data.data : null;
-            } catch (error) {
-                this.providerStatus = {
-                    provider: this.getProviderName,
-                    valid: null,
-                    quotaAvailable: false,
-                    message: error.response && error.response.data && error.response.data.message
-                        ? error.response.data.message
-                        : "The provider status could not be loaded.",
-                    quotaMessage: "",
-                };
-            } finally {
-                this.providerStatusLoading = false;
-            }
-        },
         formatNumber: function (value) {
             if (typeof value !== "number") {
                 return "n/a";
