@@ -373,7 +373,7 @@ export default {
 }
 
 .list-group-hover:hover {
-    background: #f8f9fa;
+    background: var(--tree-node-hover-bg);
 
     .flag-svg {
         transform: scale(1.25);
