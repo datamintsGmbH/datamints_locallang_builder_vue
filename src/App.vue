@@ -15,11 +15,11 @@
                     @locallang="onLocallangSelect"
                 ></dashboard-content>
             </div>
-            <footer class="footer bg-gradient-primary p-2">
+            <footer class="footer bg-primary p-2">
                 <b-row>
                     <b-col>
-                        <small class="text-white float-right d-flex align-items-center">
-                            <a v-b-tooltip.hover :href="getGitUrl" class="text-white" target="_blank" title="Open Github">
+                        <small class="float-end">
+                            <a v-b-tooltip.hover :href="getGitUrl" class="text-white mx-2" target="_blank" title="Open Github">
                                 <logo-github-icon class="mr-4" height="16px" width="16px"></logo-github-icon>
                             </a>
                             © Mark Weisgerber - version {{ version }}</small>
@@ -197,12 +197,6 @@ export default {
 </style>
 <style lang="scss">
 /* Otherwise theres no scrolling allowed in the iframe, because we're not using the be:container-viewhelper */
-html,
-body {
-    height: 100%;
-    overflow-y: scroll;
-}
-
 .main {
     display:flex;
 }

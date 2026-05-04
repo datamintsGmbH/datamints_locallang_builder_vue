@@ -1,7 +1,9 @@
 <template>
-    <b-dropdown-item-button id="buttonId" href="#" variant="danger" @click="onClickDelete">
-        <delete-forever-icon height="16px" width="16px"/>
-        Delete only the translation "{{ translationValue.ident }}"
+    <li>
+        <button :id="buttonId" class="dropdown-item text-danger" type="button" @click="onClickDelete">
+            <delete-forever-icon height="16px" width="16px"/>
+            Delete only the translation "{{ translationValue.ident }}"
+        </button>
         <modal
             v-model="modalActive"
             :hide-footer="showOverlay"
@@ -14,7 +16,7 @@
                 </b-alert>
             </b-overlay>
         </modal>
-    </b-dropdown-item-button>
+    </li>
 </template>
 
 <script>

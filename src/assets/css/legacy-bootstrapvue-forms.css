@@ -110,3 +110,122 @@
 .sr-only {
     display:none;
 }
+
+.tooltip .arrow {
+  display: block;
+  height: 0.4rem;
+  position: absolute;
+  width: 0.8rem;
+}
+
+.tooltip .arrow::before {
+  border-color: transparent;
+  border-style: solid;
+  content: "";
+  position: absolute;
+}
+
+.tooltip-inner {
+  background-color: var(--typo3-badge-default-color);
+  border-radius: 0.25rem;
+  color: var(--typo3-badge-default-bg);
+  max-width: 220px;
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+}
+
+.bs-tooltip-top,
+.bs-tooltip-auto[x-placement^="top"],
+.bs-tooltip-auto[data-popper-placement^="top"] {
+  padding: 0.4rem 0;
+}
+
+.bs-tooltip-top .arrow,
+.bs-tooltip-auto[x-placement^="top"] .arrow,
+.bs-tooltip-auto[data-popper-placement^="top"] .arrow {
+  bottom: 0;
+}
+
+.bs-tooltip-top .arrow::before,
+.bs-tooltip-auto[x-placement^="top"] .arrow::before,
+.bs-tooltip-auto[data-popper-placement^="top"] .arrow::before {
+  border-width: 0.4rem 0.4rem 0;
+  border-top-color: rgba(0, 0, 0, 0.85);
+  top: 0;
+}
+
+.bs-tooltip-right,
+.bs-tooltip-auto[x-placement^="right"],
+.bs-tooltip-auto[data-popper-placement^="right"] {
+  padding: 0 0.4rem;
+}
+
+.bs-tooltip-right .arrow,
+.bs-tooltip-auto[x-placement^="right"] .arrow,
+.bs-tooltip-auto[data-popper-placement^="right"] .arrow {
+  height: 0.8rem;
+  left: 0;
+  width: 0.4rem;
+}
+
+.bs-tooltip-right .arrow::before,
+.bs-tooltip-auto[x-placement^="right"] .arrow::before,
+.bs-tooltip-auto[data-popper-placement^="right"] .arrow::before {
+  border-width: 0.4rem 0.4rem 0.4rem 0;
+  border-right-color: rgba(0, 0, 0, 0.85);
+  right: 0;
+}
+
+.bs-tooltip-bottom,
+.bs-tooltip-auto[x-placement^="bottom"],
+.bs-tooltip-auto[data-popper-placement^="bottom"] {
+  padding: 0.4rem 0;
+}
+
+.bs-tooltip-bottom .arrow,
+.bs-tooltip-auto[x-placement^="bottom"] .arrow,
+.bs-tooltip-auto[data-popper-placement^="bottom"] .arrow {
+  top: 0;
+}
+
+.bs-tooltip-bottom .arrow::before,
+.bs-tooltip-auto[x-placement^="bottom"] .arrow::before,
+.bs-tooltip-auto[data-popper-placement^="bottom"] .arrow::before {
+  border-width: 0 0.4rem 0.4rem;
+  border-bottom-color: rgba(0, 0, 0, 0.85);
+  bottom: 0;
+}
+
+.bs-tooltip-left,
+.bs-tooltip-auto[x-placement^="left"],
+.bs-tooltip-auto[data-popper-placement^="left"] {
+  padding: 0 0.4rem;
+}
+
+.bs-tooltip-left .arrow,
+.bs-tooltip-auto[x-placement^="left"] .arrow,
+.bs-tooltip-auto[data-popper-placement^="left"] .arrow {
+  height: 0.8rem;
+  right: 0;
+  width: 0.4rem;
+}
+
+.bs-tooltip-left .arrow::before,
+.bs-tooltip-auto[x-placement^="left"] .arrow::before,
+.bs-tooltip-auto[data-popper-placement^="left"] .arrow::before {
+  border-width: 0.4rem 0 0.4rem 0.4rem;
+  border-left-color: rgba(0, 0, 0, 0.85);
+  left: 0;
+}
+
+.rounded-bl-0 {
+    border-bottom-left-radius: 0 !important;
+}
+
+.rounded-br-0 {
+    border-bottom-right-radius: 0 !important;
+}
+
+.b-table-has-details{
+    display:none;
+}

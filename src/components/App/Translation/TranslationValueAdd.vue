@@ -38,9 +38,15 @@
                 </b-row>
             </div>
 
-            <b-alert show variant="info">
-                Find a list of available codes
-                <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/translator/language-support" target="_blank">here</a>
+            <provider-supported-languages
+                :languages="providerSupportedLanguageRows"
+                :provider-name="providerDisplayName"
+            />
+            <b-alert :show="selectionUnknownLanguage" variant="danger">
+                The entered language code was not found
+            </b-alert>
+            <b-alert :show="selectionUnsupportedByProvider" variant="danger">
+                Your provider {{ providerDisplayName }} does not support the language "{{ languageToAdd }}"
             </b-alert>
             <b-alert :show="selectionAlreadyExists" variant="danger">
                 The entered language already exists
@@ -51,8 +57,15 @@
 </template>
 
 <script>
+import ProviderSupportedLanguages from "../ProviderSupportedLanguages.vue";
+import providerLanguageValidation from "../../../mixins/providerLanguageValidation";
+
 export default {
     name: "TranslationValueAdd",
+    mixins: [providerLanguageValidation],
+    components: {
+        ProviderSupportedLanguages,
+    },
     props: ["translation", "rerender", "identList", "defaultValue"],
     mounted() {
         // switch the flag to false, when there is no auto-translate provider configured
@@ -67,9 +80,7 @@ export default {
          */
         state() {
             if (this.languageToAdd.length === 0) return null;
-            return (
-                this.languages.filter((language) => language.key === this.languageToAdd).length > 0 && this.identList.indexOf(this.languageToAdd) === -1
-            );
+            return this.languageValidationReason === null;
         },
         /**
          * Button-ID to avoid conflicts with other forms in the background
@@ -90,7 +101,13 @@ export default {
          * @returns {boolean}
          */
         selectionAlreadyExists() {
-            return this.identList.indexOf(this.languageToAdd) > -1;
+            return this.languageValidationReason === "duplicate";
+        },
+        selectionUnknownLanguage() {
+            return this.languageValidationReason === "unknown";
+        },
+        selectionUnsupportedByProvider() {
+            return this.languageValidationReason === "provider-unsupported";
         },
         /**
          * Register of all valid languages
@@ -101,6 +118,29 @@ export default {
         },
         isAllowedProvider: function () {
             return this.$store.getters.config.provider.length > 0;
+        },
+        languageValidationReason() {
+            const normalizedLanguageCode = this.normalizeLanguageCode(this.languageToAdd);
+            if (normalizedLanguageCode.length === 0) {
+                return null;
+            }
+
+            if (!this.isKnownLanguageCode(normalizedLanguageCode)) {
+                return "unknown";
+            }
+
+            if (this.identListNormalized.includes(normalizedLanguageCode)) {
+                return "duplicate";
+            }
+
+            if (!this.isProviderSupportedLanguageCode(normalizedLanguageCode)) {
+                return "provider-unsupported";
+            }
+
+            return null;
+        },
+        identListNormalized() {
+            return this.identList.map((ident) => this.normalizeLanguageCode(ident));
         },
     },
     data() {
@@ -125,7 +165,7 @@ export default {
          */
         languageToAdd(newValue, oldValue) {
             if (newValue !== oldValue) {
-                this.languageToAdd = this.languageToAdd.toLowerCase();
+                this.languageToAdd = this.normalizeLanguageCode(this.languageToAdd);
             }
         },
     },

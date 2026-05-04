@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-list-group>
-            <b-list-group-item class="list-group-hover position-relative">
+            <b-list-group-item class="list-group-flush list-group-hover position-relative">
                 <div v-show="savingTime" class="position-absolute save-overlay bg-light p-1">
                     <!-- Remaining Time -->
                     Auto-Saving in
@@ -158,24 +158,32 @@
                         </b-input-group>
                     </b-col>
                 </b-row>
-                <b-dropdown
+                <base-dropdown
                     v-if="!isDefault"
                     v-b-tooltip.hover
-                    class="m-2 position-absolute"
-                    dropleft
-                    no-caret
-                    size="sm"
+                    class="dropdown-abs m-2 position-absolute"
+                    direction="left"
+                    :has-toggle="false"
+                    menu-classes="mt-0"
                     style="top: -0.5rem; right: -0.5rem"
                     title="Further options"
-                    variant="link"
                 >
-                    <template #button-content>
+                    <template #title>
                         <b-icon icon="three-dots-vertical"></b-icon>
                     </template>
-
-
+                    <template #title-container="{ isOpen, toggleDropdown }">
+                        <button
+                            :aria-expanded="isOpen"
+                            aria-haspopup="true"
+                            class="base-dropdown__icon-button"
+                            type="button"
+                            @click.stop="toggleDropdown"
+                        >
+                            <b-icon icon="three-dots-vertical"></b-icon>
+                        </button>
+                    </template>
                     <TranslationValueDelete :rerender="rerender" :translationValue="translationValue"/>
-                </b-dropdown>
+                </base-dropdown>
             </b-list-group-item>
         </b-list-group>
     </div>
@@ -322,7 +330,34 @@ export default {
     },
 };
 </script>
+<style scoped>
+.dropdown-abs {
+    position: absolute;
+    padding: 5px;
+}
+.base-dropdown__icon-button {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 0.375rem;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
+.base-dropdown__icon-button:hover,
+.base-dropdown__icon-button:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    outline: 0;
+}
+</style>
 <style lang="scss">
+.list-group-top{
+    border-top-radius: 0;
+    border-bottom-radius: 0;
+}
 .flag-svg {
     background-size: cover;
     width: 1.5rem;

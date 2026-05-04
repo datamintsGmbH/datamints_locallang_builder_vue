@@ -15,7 +15,7 @@
 
 
           </span>
-            <span class="d-flex align-items-center">
+            <span class="d-flex align-items-center btn-toolbar">
                 <!-- Badge with default translation value -->
                 <span
                     v-if="getDefaultValue"
@@ -85,13 +85,13 @@ export default {
         buttonClass: function () {
             return (
                 "badge bg-gradient-primary badge-textmove d-block text-left p-2 d-flex justify-content-between align-items-center" +
-                (this.translation.expanded === true ? " badge-force-textmove" : "")
+                (this.translation.expanded === true ? " badge-force-textmove rounded-bl-0 rounded-br-0" : "")
             );
         },
 
         actionClass: function () {
             return (
-                (this.translation.expanded === true ? "" : "d-none")
+                (this.translation.expanded === true ? "btn-toolbar" : "d-none")
             );
         },
     },

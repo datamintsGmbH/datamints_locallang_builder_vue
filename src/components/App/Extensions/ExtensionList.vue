@@ -51,7 +51,7 @@
                 <hr class="my-3">
                 <h6 class="navbar-heading p-0 text-muted ms-3">Actions</h6>
 
-                <div class="btn-group">
+                <div class="btn-group ms-2">
                     <a class="btn btn-default" href="#" @click.prevent="onReloadClick">
                         <reload-icon class="me-3" height="16px" width="16px"></reload-icon>
                         Invalidate caches
@@ -60,7 +60,7 @@
 
                 <hr class="my-3">
                 <h6 class="navbar-heading p-0 text-muted ms-3">Documentation</h6>
-                <div class="btn-group">
+                <div class="btn-group ms-2">
                     <a class="btn btn-default" :href="getDocumentationUrl" target="_blank">
                         <i class="ni ni-spaceship"></i>
                         Getting started
