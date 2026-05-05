@@ -355,6 +355,7 @@ body.dm-modal-open {
         background: var(--typo3-surface-base);
         border-bottom: 1px solid color-mix(in srgb, var(--contextual-record-edit-bg), var(--typo3-text-color-base) 15%);
         display: flex;
+        justify-content: space-between;
         gap: .75rem;
         overflow: hidden;
         padding: .5rem 1rem;

@@ -22,7 +22,8 @@
                             <a v-b-tooltip.hover :href="getGitUrl" class="text-white mx-2" target="_blank" title="Open Github">
                                 <logo-github-icon class="mr-4" height="16px" width="16px"></logo-github-icon>
                             </a>
-                            © Mark Weisgerber - version {{ version }}</small>
+                            © Mark Weisgerber - version {{ version }}
+                        </small>
                     </b-col>
                 </b-row>
             </footer>

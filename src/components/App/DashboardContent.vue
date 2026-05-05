@@ -26,8 +26,8 @@
                 <!-- Card stats -->
 
                 <b-row>
-                    <b-col md="6">
-                        <b-card v-if="shouldShowProviderStatusCard" no-body>
+                    <b-col md="6" v-if="shouldShowProviderStatusCard">
+                        <b-card no-body>
                             <b-card-header class="d-flex justify-content-between align-items-center">
                                 <strong>Provider status</strong>
                                 <b-spinner v-if="providerStatusLoading" small label="Loading"/>
