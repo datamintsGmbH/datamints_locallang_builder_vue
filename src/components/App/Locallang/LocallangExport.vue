@@ -31,7 +31,7 @@
                                 <b-form-group label-class="form-label t3js-formengine-label pt-0" content-cols-lg="7" content-cols-sm label-cols-lg="4" label-cols-sm="4">
                                     <template #label>
                                         <b-link v-b-tooltip.hover class="text-dark" href="#disabled"
-                                                title="Select the output target. Its the easiest way to overwrite the current locallang-file, but it's also possible to export to fileadmin/locallang-builder/">
+                                                title="Select the output target. You can write the export into the extension language folder or into fileadmin/locallang-builder/.">
                                             Target
                                         </b-link>
                                     </template>
@@ -61,15 +61,15 @@
                     </b-col>
                     <b-col>
                         <b-alert :show="overwriteChosen" variant="warning">
-                            The file-content will be overwritten with the values from
-                            "locallang-builder". Its not recommended to edit the file manually
-                            after this process. If you have to edit something manually, please
-                            reimport the file from the actions-menu to reset everything and fetch the latest
-                            file-content.
+                            {{ overwriteHintText }}
                         </b-alert>
                         <b-alert :show="backupChosen" variant="success">
                             Your previous locallang-files will be copied to the backup-folder,
                             so you can restore the backup if something bad happens.
+                        </b-alert>
+                        <b-alert :show="jsonFiletypeChosen" variant="info">
+                            JSON export writes flat key/value translations for TYPO3 locallang JSON loaders.
+                            XLF-specific metadata like comments, approval state, and xml:space is not stored in JSON.
                         </b-alert>
                     </b-col>
                 </b-row>
@@ -90,6 +90,10 @@ export default {
                 {
                     text: "XML (.xlf)",
                     value: "xml-xlf",
+                },
+                {
+                    text: "JSON (.json)",
+                    value: "json",
                 },
             ],
             selectedFiletype: "xml-xlf",
@@ -114,6 +118,16 @@ export default {
         },
         backupChosen() {
             return this.triggerBackup === true && this.selectedTarget == "overwrite";
+        },
+        jsonFiletypeChosen() {
+            return this.selectedFiletype === "json";
+        },
+        overwriteHintText() {
+            if (this.jsonFiletypeChosen) {
+                return "The JSON export will be written into the extension language folder next to the existing locallang files.";
+            }
+
+            return 'The file-content will be overwritten with the values from "locallang-builder". Its not recommended to edit the file manually after this process. If you have to edit something manually, please reimport the file from the actions-menu to reset everything and fetch the latest file-content.';
         },
     },
     methods: {
