@@ -219,6 +219,10 @@ export default {
     align-items: start;
 }
 
+.form-select {
+    min-width: auto;
+}
+
 .b-form-tag-remove {
     background: var(--typo3-state-yellow-focus-bg);
 }
