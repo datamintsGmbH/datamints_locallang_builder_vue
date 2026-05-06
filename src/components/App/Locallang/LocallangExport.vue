@@ -27,6 +27,32 @@
                                         name="export-radio-filetype">
                                     </b-form-radio-group>
                                 </b-form-group>
+                                <b-form-group
+                                    v-if="xlfFiletypeChosen"
+                                    label-class="form-label t3js-formengine-label pt-0"
+                                    content-cols-lg="7"
+                                    content-cols-sm
+                                    label-cols-lg="4"
+                                    label-cols-sm="4"
+                                >
+                                    <template #label>
+                                        <b-link
+                                            v-b-tooltip.hover
+                                            class="text-dark"
+                                            href="#disabled"
+                                            title="Choose the XLIFF schema version for the exported .xlf files"
+                                        >
+                                            XLIFF version
+                                        </b-link>
+                                    </template>
+                                    <b-form-radio-group
+                                        id="xliff-version"
+                                        v-model="selectedXliffVersion"
+                                        :options="xliffVersionOptions"
+                                        name="export-radio-xliff-version"
+                                    >
+                                    </b-form-radio-group>
+                                </b-form-group>
                                 <!-- Target -->
                                 <b-form-group label-class="form-label t3js-formengine-label pt-0" content-cols-lg="7" content-cols-sm label-cols-lg="4" label-cols-sm="4">
                                     <template #label>
@@ -99,7 +125,18 @@ export default {
                     value: "yaml",
                 },
             ],
+            xliffVersionOptions: [
+                {
+                    text: "1.2",
+                    value: "1.2",
+                },
+                {
+                    text: "2.0",
+                    value: "2.0",
+                },
+            ],
             selectedFiletype: "xml-xlf",
+            selectedXliffVersion: "1.2",
             targetOptions: [
                 {
                     text: "Overwrite",
@@ -118,6 +155,9 @@ export default {
     computed: {
         overwriteChosen() {
             return this.selectedTarget == "overwrite";
+        },
+        xlfFiletypeChosen() {
+            return this.selectedFiletype === "xml-xlf";
         },
         backupChosen() {
             return this.triggerBackup === true && this.selectedTarget == "overwrite";
@@ -160,6 +200,7 @@ export default {
                     data: JSON.stringify({
                         triggerBackup: this.triggerBackup,
                         selectedFiletype: this.selectedFiletype,
+                        selectedXliffVersion: this.selectedXliffVersion,
                         triggerCache: this.triggerCache,
                         selectedTarget: this.selectedTarget,
                     }),

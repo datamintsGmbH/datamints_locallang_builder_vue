@@ -1,10 +1,8 @@
 <template>
-    <span class="pr-1">
 
-        <!-- After clicking on the button, a popover with a form appears -->
-        <base-button :id="addButtonId" v-b-tooltip.hover size="sm" title="Add language-entry" variant="dark">
-            <flag-icon class="text-white" height="11px" width="11px"></flag-icon>
-        </base-button>
+    <!-- After clicking on the button, a popover with a form appears -->
+    <base-button class="" :id="addButtonId" v-b-tooltip.hover title="Add language-entry" variant="none">
+        <flag-icon class="text-white" height="11px" width="11px"></flag-icon>
         <b-popover :target="addButtonId" triggers="focus">
             <template #title>Enter translation code</template>
             <b-input-group class="shadow">
@@ -52,8 +50,7 @@
                 The entered language already exists
             </b-alert>
         </b-popover>
-
-    </span>
+    </base-button>
 </template>
 
 <script>

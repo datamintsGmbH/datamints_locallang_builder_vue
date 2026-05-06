@@ -206,6 +206,10 @@ export default {
     width: 100%;
 }
 
+.recordlist td{
+    padding: 2px;
+}
+
 .footer {
     position: fixed;
     bottom: 0;

@@ -1,11 +1,10 @@
 <template>
     <base-button v-b-tooltip.hover
-                 size="sm"
                  title="Delete key"
                  type="danger"
                  @click="onClickDelete"
     >
-        <delete-forever-icon height="11px" width="11px"/>
+        <delete-forever-icon height="14px" width="14px"/>
         <modal
             v-model="modalActive"
             :hide-footer="showOverlay"

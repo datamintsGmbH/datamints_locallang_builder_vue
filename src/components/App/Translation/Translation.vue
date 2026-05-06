@@ -4,10 +4,10 @@
         <b-button
             :class="buttonClass"
             block
-            variant="primary"
+            variant="none"
             @click.self="toggle">
           <span class="position-relative">
-            <key-icon class="text-white" height="16px" width="16px"></key-icon>
+            <key-icon height="16px" width="16px"></key-icon>
 
             <strong class="ms-2">Key: </strong>
               <!-- Rename Function -->
@@ -84,14 +84,14 @@ export default {
 
         buttonClass: function () {
             return (
-                "badge bg-gradient-primary badge-textmove d-block text-left p-2 d-flex justify-content-between align-items-center" +
+                "badge badge-textmove d-block text-left p-2 d-flex justify-content-between align-items-center" +
                 (this.translation.expanded === true ? " badge-force-textmove rounded-bl-0 rounded-br-0" : "")
             );
         },
 
         actionClass: function () {
             return (
-                (this.translation.expanded === true ? "btn-toolbar" : "d-none")
+                (this.translation.expanded === true ? "btn-group" : "d-none")
             );
         },
     },
@@ -134,10 +134,10 @@ export default {
 
 .cursor-selection {
     cursor: text;
-    color: #eee !important;
+    color: var(--typo3-text-color-link) !important;
 
     &:hover {
-        color: #fff !important;
+        color: var(--bs-link-hover-color-rgb) !important;
         text-decoration: underline;
     }
 }

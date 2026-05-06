@@ -84,15 +84,26 @@
                 </b-col>
             </b-row>
 
-            <table :id="tableId" class="recordlist locallang-table">
-                <tbody>
-                <tr v-for="translation in paginatedTranslations" :key="translation.object.uid">
-                    <td class="locallang-table-cell">
-                        <Translation :locallang="locallang" :rerender="render" :translation="translation.object"/>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="recordlist">
+                <div class="recordlist-heading multi-record-selection-panel">
+                    Translations
+                </div>
+                <div class="">
+                    <table :id="tableId" data-table="locallang" class="table table-striped table-hover">
+                        <tbody>
+                        <tr
+                            v-for="translation in paginatedTranslations"
+                            :key="translation.object.uid"
+                            :data-uid="translation.object.uid"
+                        >
+                            <td>
+                                <Translation :locallang="locallang" :rerender="render" :translation="translation.object"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="alert alert-warning" v-if="filteredTranslations.length === 0">
                 There are currently no entries in this file. Create the first entry by clicking “New key” at the top.
             </div>
@@ -290,15 +301,3 @@ export default {
     },
 };
 </script>
-<style scoped>
-.locallang-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.25rem;
-}
-
-.locallang-table-cell {
-    padding: 0;
-    border: 0;
-}
-</style>

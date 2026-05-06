@@ -1,126 +1,124 @@
 <template>
-    <span class="pr-1">
 
-        <!-- After clicking on the button, a popover with a form appears -->
-        <base-button :id="addButtonId" v-b-tooltip.hover size="sm" title="Display Viewhelpers" type="success">
-            <code-icon class="text-white" height="11px" width="11px"></code-icon>
-        </base-button>
+    <!-- After clicking on the button, a popover with a form appears -->
+    <base-button :id="addButtonId" v-b-tooltip.hover title="Display Viewhelpers" type="success">
+        <code-icon class="text-white" height="16px" width="16px"></code-icon>
         <b-popover :target="addButtonId" triggers="focus">
             <template #title>Viewhelpers</template>
             <b-tabs align="center" content-class="mt-4" fill justified pills vertical>
                 <b-tab active lazy>
-                  <template v-slot:title>
-                    <i class="ni ni-favourite-28 me-2"></i> Fluid (normal)
-                  </template>
-                  <b-card header="Fluid" header-bg-variant="success" header-class="font-weight-bold" header-text-variant="white">
-                    <base-input input-classes="form-control-sm" label="Copy (classic LLL)">
-                        <textarea v-model="fluid"
-                                  v-b-tooltip.hover
-                                  v-clipboard:copy="fluid"
-                                    v-clipboard:error="onError"
-                                    v-clipboard:success="onCopy"
-                                     class="form-control form-control-muted copy-textarea"
-                                     rows="5" title="Click to copy the content to your clipboard"></textarea>
-                    </base-input>
-                    <base-input input-classes="form-control-sm" label="Copy (TYPO3 14 domain)">
-                        <textarea v-model="fluidDomain"
-                                  v-b-tooltip.hover
-                                  v-clipboard:copy="fluidDomain"
-                                  v-clipboard:error="onError"
-                                  v-clipboard:success="onCopy"
-                                  class="form-control form-control-muted copy-textarea"
-                                  rows="5" title="Click to copy the content to your clipboard"></textarea>
-                    </base-input>
-                  </b-card>
-                </b-tab>
-
-                <b-tab lazy>
-                  <template v-slot:title>
-                    <i class="ni ni-scissors me-2"></i> Fluid (inline)
-                  </template>
-                  <b-card header="Fluid inline" header-bg-variant="warning" header-class="font-weight-bold" header-text-variant="white">
-                    <base-input input-classes="form-control-sm" label="Copy (classic LLL)">
-                          <textarea v-model="fluidInline"
-                                    v-b-tooltip.hover
-                                    v-clipboard:copy="fluidInline"
-                                    v-clipboard:error="onError"
-                                    v-clipboard:success="onCopy"
-                                     class="form-control form-control-muted copy-textarea"
-                                     rows="5" title="Click to copy the content to your clipboard"></textarea>
-                    </base-input>
-                    <base-input input-classes="form-control-sm" label="Copy (TYPO3 14 domain)">
-                        <textarea v-model="fluidInlineDomain"
-                                  v-b-tooltip.hover
-                                  v-clipboard:copy="fluidInlineDomain"
-                                  v-clipboard:error="onError"
-                                  v-clipboard:success="onCopy"
-                                  class="form-control form-control-muted copy-textarea"
-                                  rows="5" title="Click to copy the content to your clipboard"></textarea>
-                    </base-input>
-                  </b-card>
-                </b-tab>
-
-                <b-tab lazy>
-                  <template v-slot:title>
-                    <i class="ni ni-like-2 me-2"></i> Extbase (php)
-                  </template>
-                  <b-card header="Extbase" header-bg-variant="danger" header-class="font-weight-bold" header-text-variant="white">
+                    <template v-slot:title>
+                        <i class="ni ni-favourite-28 me-2"></i> Fluid (normal)
+                    </template>
+                    <b-card header="Fluid" header-bg-variant="success" header-class="font-weight-bold" header-text-variant="white">
                         <base-input input-classes="form-control-sm" label="Copy (classic LLL)">
-                          <textarea v-model="extbase"
-                                    v-b-tooltip.hover
-                                    v-clipboard:copy="extbase"
-                                    v-clipboard:error="onError"
-                                    v-clipboard:success="onCopy"
-                                     class="form-control form-control-muted copy-textarea"
-                                     rows="5" title="Click to copy the content to your clipboard"></textarea>
+                    <textarea v-model="fluid"
+                              v-b-tooltip.hover
+                              v-clipboard:copy="fluid"
+                              v-clipboard:error="onError"
+                              v-clipboard:success="onCopy"
+                              class="form-control form-control-muted copy-textarea"
+                              rows="5" title="Click to copy the content to your clipboard"></textarea>
                         </base-input>
                         <base-input input-classes="form-control-sm" label="Copy (TYPO3 14 domain)">
-                          <textarea v-model="extbaseDomain"
-                                    v-b-tooltip.hover
-                                    v-clipboard:copy="extbaseDomain"
-                                    v-clipboard:error="onError"
-                                    v-clipboard:success="onCopy"
-                                    class="form-control form-control-muted copy-textarea"
-                                    rows="5" title="Click to copy the content to your clipboard"></textarea>
+                    <textarea v-model="fluidDomain"
+                              v-b-tooltip.hover
+                              v-clipboard:copy="fluidDomain"
+                              v-clipboard:error="onError"
+                              v-clipboard:success="onCopy"
+                              class="form-control form-control-muted copy-textarea"
+                              rows="5" title="Click to copy the content to your clipboard"></textarea>
+                        </base-input>
+                    </b-card>
+                </b-tab>
+
+                <b-tab lazy>
+                    <template v-slot:title>
+                        <i class="ni ni-scissors me-2"></i> Fluid (inline)
+                    </template>
+                    <b-card header="Fluid inline" header-bg-variant="warning" header-class="font-weight-bold" header-text-variant="white">
+                        <base-input input-classes="form-control-sm" label="Copy (classic LLL)">
+                      <textarea v-model="fluidInline"
+                                v-b-tooltip.hover
+                                v-clipboard:copy="fluidInline"
+                                v-clipboard:error="onError"
+                                v-clipboard:success="onCopy"
+                                class="form-control form-control-muted copy-textarea"
+                                rows="5" title="Click to copy the content to your clipboard"></textarea>
+                        </base-input>
+                        <base-input input-classes="form-control-sm" label="Copy (TYPO3 14 domain)">
+                    <textarea v-model="fluidInlineDomain"
+                              v-b-tooltip.hover
+                              v-clipboard:copy="fluidInlineDomain"
+                              v-clipboard:error="onError"
+                              v-clipboard:success="onCopy"
+                              class="form-control form-control-muted copy-textarea"
+                              rows="5" title="Click to copy the content to your clipboard"></textarea>
+                        </base-input>
+                    </b-card>
+                </b-tab>
+
+                <b-tab lazy>
+                    <template v-slot:title>
+                        <i class="ni ni-like-2 me-2"></i> Extbase (php)
+                    </template>
+                    <b-card header="Extbase" header-bg-variant="danger" header-class="font-weight-bold" header-text-variant="white">
+                        <base-input input-classes="form-control-sm" label="Copy (classic LLL)">
+                      <textarea v-model="extbase"
+                                v-b-tooltip.hover
+                                v-clipboard:copy="extbase"
+                                v-clipboard:error="onError"
+                                v-clipboard:success="onCopy"
+                                class="form-control form-control-muted copy-textarea"
+                                rows="5" title="Click to copy the content to your clipboard"></textarea>
+                        </base-input>
+                        <base-input input-classes="form-control-sm" label="Copy (TYPO3 14 domain)">
+                      <textarea v-model="extbaseDomain"
+                                v-b-tooltip.hover
+                                v-clipboard:copy="extbaseDomain"
+                                v-clipboard:error="onError"
+                                v-clipboard:success="onCopy"
+                                class="form-control form-control-muted copy-textarea"
+                                rows="5" title="Click to copy the content to your clipboard"></textarea>
                         </base-input>
 
                     </b-card>
                 </b-tab>
                 <b-tab lazy>
-                  <template v-slot:title>
-                    <i class="ni ni-like-2 me-2"></i> Plain
-                  </template>
-                  <b-card header="Plain" header-bg-variant="primary" header-class="font-weight-bold" header-text-variant="white">
+                    <template v-slot:title>
+                        <i class="ni ni-like-2 me-2"></i> Plain
+                    </template>
+                    <b-card header="Plain" header-bg-variant="primary" header-class="font-weight-bold" header-text-variant="white">
                         <base-input input-classes="form-control-sm" label="Copy (classic LLL)">
-                          <textarea v-model="plain"
-                                    v-b-tooltip.hover
-                                    v-clipboard:copy="plain"
-                                    v-clipboard:error="onError"
-                                    v-clipboard:success="onCopy"
-                                     class="form-control form-control-muted copy-textarea"
-                                     rows="5" title="Click to copy the content to your clipboard"></textarea>
+                      <textarea v-model="plain"
+                                v-b-tooltip.hover
+                                v-clipboard:copy="plain"
+                                v-clipboard:error="onError"
+                                v-clipboard:success="onCopy"
+                                class="form-control form-control-muted copy-textarea"
+                                rows="5" title="Click to copy the content to your clipboard"></textarea>
                         </base-input>
                         <base-input input-classes="form-control-sm" label="Copy (TYPO3 14 domain)">
-                          <textarea v-model="plainDomain"
-                                    v-b-tooltip.hover
-                                    v-clipboard:copy="plainDomain"
-                                    v-clipboard:error="onError"
-                                    v-clipboard:success="onCopy"
-                                    class="form-control form-control-muted copy-textarea"
-                                    rows="5" title="Click to copy the content to your clipboard"></textarea>
+                      <textarea v-model="plainDomain"
+                                v-b-tooltip.hover
+                                v-clipboard:copy="plainDomain"
+                                v-clipboard:error="onError"
+                                v-clipboard:success="onCopy"
+                                class="form-control form-control-muted copy-textarea"
+                                rows="5" title="Click to copy the content to your clipboard"></textarea>
                         </base-input>
 
                     </b-card>
                 </b-tab>
-              </b-tabs>
+            </b-tabs>
 
 
             <b-alert show variant="info">
                 Choose your format and click on a textarea to copy the snippet into your clipboard
             </b-alert>
         </b-popover>
+    </base-button>
 
-    </span>
 </template>
 
 <script>
