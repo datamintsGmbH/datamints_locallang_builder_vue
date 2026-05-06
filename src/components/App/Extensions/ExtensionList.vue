@@ -42,6 +42,10 @@
                     :locallang="locallang"
                     @locallang="onLocallangSelect"
                 ></sidebar-item>
+                <extension-create-locallang-button
+                    :extension="extension"
+                    @locallang="onLocallangSelect"
+                ></extension-create-locallang-button>
 
             </sidebar-item>
 
@@ -76,6 +80,7 @@
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import swal from 'sweetalert2'
+import ExtensionCreateLocallangButton from "./ExtensionCreateLocallangButton.vue";
 
 function hasElement(className) {
     return document.getElementsByClassName(className).length > 0;
@@ -93,6 +98,9 @@ function initScrollbar(className) {
 }
 
 export default {
+    components: {
+        ExtensionCreateLocallangButton,
+    },
     computed: {
         extensions() {
             return this.$store.getters.extensions;

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 import * as proxy from './../../scripts/Proxy.js'
 
@@ -130,6 +131,16 @@ const mutations = {
     }
     console.error("Could not add translation value.");
   },
+  ADD_LOCALLANG(state, payload) {
+    for (let extensionKey in state.extensions) {
+      let extension = state.extensions[extensionKey];
+      if (extension.uid === parseInt(payload.extensionUid)) {
+        Vue.set(extension.locallangs, payload.locallang.uid, payload.locallang);
+        return;
+      }
+    }
+    console.error("Could not add locallang.");
+  },
   CLEAR_EXTENSIONS(state) {
     state.extensions = [];
     return;
@@ -165,6 +176,22 @@ const actions = {
         context.commit('CLEAR_EXTENSIONS');
       }).catch(catchFallback);
 
+  },
+  async createLocallang(context, payload) {
+    try {
+      const response = await axios.post(proxy.apiPath('api-extension-createlocallang', [payload.uid]), new URLSearchParams(payload))
+      analyzeResponse(response, context.commit);
+      if (response.data.status === 'success') {
+        context.commit('ADD_LOCALLANG', {
+          extensionUid: payload.uid,
+          locallang: response.data.data,
+        });
+      }
+      return response.data;
+    } catch (err) {
+      catchFallback(err);
+      throw err;
+    }
   },
   async addTranslationValue(context, payload) {
     await axios.post(proxy.apiPath('api-translation-addtranslationvalue', [payload.uid]), new URLSearchParams(payload))
