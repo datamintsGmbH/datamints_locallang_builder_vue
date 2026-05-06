@@ -1,7 +1,7 @@
 <template>
     <li class="nav-item nav-item-create">
         <button class="nav-link text-break create-locallang-button" type="button" @click="showPrompt">
-            <b-icon icon="plus-circle" class="me-2 flex-shrink-0"></b-icon>
+            <b-icon icon="plus-circle" class="mx-2 flex-shrink-0"></b-icon>
             <span class="nav-link-text overflow-prevent">New file</span>
         </button>
     </li>

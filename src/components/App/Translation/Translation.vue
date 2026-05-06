@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-2">
+    <div class="">
         <!-- Button to expand/collapse the translation entity -->
         <b-button
             :class="buttonClass"

@@ -60,46 +60,30 @@
                 @click="linkClick"
             >
                 <template v-if="addLink">
-          <span class="nav-link-text d-flex align-items-center justify-content-between ms-2">
-            <span class="d-flex align-items-center overflow-prevent">
-              <b-icon
-                  v-if="locallangImported"
-                  icon="check-circle-fill"
-                  variant="success"
-                  class="me-2 flex-shrink-0"
-              ></b-icon>
-              <span class="overflow-prevent">{{ link.name }}</span>
-            </span>
+          <span class="nav-link-text d-flex align-items-center ms-2">
             <b-icon
-                v-if="showImportState && !locallangImported"
+                v-if="showImportState"
                 v-b-tooltip.hover
                 :icon="importStateIcon"
                 :title="importStateTitle"
                 :variant="importStateVariant"
-                class="import-state-icon ms-2 flex-shrink-0"
+                class="import-state-icon me-2 flex-shrink-0"
             ></b-icon>
+            <span class="overflow-prevent">{{ link.name }}</span>
           </span>
                 </template>
                 <template v-else>
                     <i :class="link.icon"></i>
-                    <span class="nav-link-text d-flex align-items-center justify-content-between ms-2">
-            <span class="d-flex align-items-center overflow-prevent">
-              <b-icon
-                  v-if="locallangImported"
-                  icon="check-circle-fill"
-                  variant="success"
-                  class="me-2 flex-shrink-0"
-              ></b-icon>
-              <span class="overflow-prevent">{{ link.name }}</span>
-            </span>
+                    <span class="nav-link-text d-flex align-items-center ms-2">
             <b-icon
-                v-if="showImportState && !locallangImported"
+                v-if="showImportState"
                 v-b-tooltip.hover
                 :icon="importStateIcon"
                 :title="importStateTitle"
                 :variant="importStateVariant"
-                class="import-state-icon ms-2 flex-shrink-0"
+                class="import-state-icon me-2 flex-shrink-0"
             ></b-icon>
+            <span class="overflow-prevent">{{ link.name }}</span>
           </span>
                 </template>
             </a>

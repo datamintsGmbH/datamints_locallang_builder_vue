@@ -84,26 +84,18 @@
                 </b-col>
             </b-row>
 
-            <b-table
-                :id="tableId"
-                :current-page="currentPage"
-                :fields="fieldNames"
-                :filter="searchValue"
-                :items="locallang.translationsArray"
-                :per-page="perPage"
-                :sort-by.sync="sortBy"
-                :sort-desc.sync="sortDesc"
-                :sort-direction="sortDirection"
-                small
-                thead-class="d-none"
-            >
-                <template #row-details="row">
-                    <Translation :locallang="locallang" :rerender="render" :translation="row.item.object"/>
-                </template>
-                <template #cell(key)="data">
-                    <span class="d-none">{{ data.item.key }}</span>
-                </template>
-            </b-table>
+            <table :id="tableId" class="recordlist locallang-table">
+                <tbody>
+                <tr v-for="translation in paginatedTranslations" :key="translation.object.uid">
+                    <td class="locallang-table-cell">
+                        <Translation :locallang="locallang" :rerender="render" :translation="translation.object"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-warning" v-if="filteredTranslations.length === 0">
+                There are currently no entries in this file. Create the first entry by clicking “New key” at the top.
+            </div>
             <b-row>
                 <b-col>
                     <b-pagination
@@ -168,7 +160,6 @@ export default {
             searchValue: "",
             perPage: 10,
             currentPage: 1,
-            fieldNames: ["key", "tstamp", "crdate"],
             pageOptions: [5, 10, 20, 30],
             sortOptions: [{text: "Name", value: "key"}],
             sortBy: "",
@@ -181,21 +172,72 @@ export default {
             return "table-locallang-" + this.locallang.uid;
         },
         rows() {
-            return this.locallang.translationsArray.length;
+            return this.filteredTranslations.length;
         },
-        translationsFiltered() {
+        filteredTranslations() {
+            const searchNeedle = this.searchValue.trim().toLowerCase();
+            if (!searchNeedle) {
+                return this.locallang.translationsArray;
+            }
+
             return this.locallang.translationsArray.filter((translation) => {
-                return translation.key
-                    .toLowerCase()
-                    .includes(this.searchValue.toLowerCase());
+                const translationObject = translation.object || {};
+                const haystacks = [
+                    translation.key,
+                    ...Object.values(translationObject.translationValues || {}).map((value) => value.value || ""),
+                    ...Object.values(translationObject.translationValues || {}).map((value) => value.comment || ""),
+                ];
+
+                return haystacks.some((value) =>
+                    String(value).toLowerCase().includes(searchNeedle)
+                );
             });
+        },
+        sortedTranslations() {
+            const translations = [...this.filteredTranslations];
+            if (this.sortBy !== "key") {
+                return translations;
+            }
+
+            translations.sort((left, right) => {
+                const leftValue = String(left.key || "").toLowerCase();
+                const rightValue = String(right.key || "").toLowerCase();
+
+                if (leftValue === rightValue) {
+                    return 0;
+                }
+
+                const result = leftValue < rightValue ? -1 : 1;
+                return this.sortDesc ? result * -1 : result;
+            });
+
+            return translations;
+        },
+        paginatedTranslations() {
+            const start = (this.currentPage - 1) * this.perPage;
+            return this.sortedTranslations.slice(start, start + this.perPage);
+        },
+    },
+    watch: {
+        rows() {
+            const maxPage = Math.max(1, Math.ceil(this.rows / this.perPage));
+            if (this.currentPage > maxPage) {
+                this.currentPage = maxPage;
+            }
+        },
+        perPage() {
+            const maxPage = Math.max(1, Math.ceil(this.rows / this.perPage));
+            if (this.currentPage > maxPage) {
+                this.currentPage = maxPage;
+            }
+        },
+        searchValue() {
+            this.currentPage = 1;
         },
     },
     methods: {
         render() {
-            // method to re-render this component. Its required in the translationAdd-Component. For some reason its not updating otherwise
             this.$forceUpdate();
-            this.$root.$emit("bv::refresh::table", this.tableId);
         },
 
         addLanguage() {
@@ -248,3 +290,15 @@ export default {
     },
 };
 </script>
+<style scoped>
+.locallang-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.25rem;
+}
+
+.locallang-table-cell {
+    padding: 0;
+    border: 0;
+}
+</style>

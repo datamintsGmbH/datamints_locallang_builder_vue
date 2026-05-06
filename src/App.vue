@@ -223,6 +223,10 @@ export default {
     min-width: auto;
 }
 
+.swal2-actions{
+    gap:0.5rem;
+}
+
 .b-form-tag-remove {
     background: var(--typo3-state-yellow-focus-bg);
 }

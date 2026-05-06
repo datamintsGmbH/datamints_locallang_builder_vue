@@ -11,7 +11,6 @@
       :key="locallang.uid"
     >
       <Locallang :locallang="locallang" />
-      <hr />
     </b-card-group>
   </div>
 </template>
