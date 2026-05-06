@@ -53,7 +53,7 @@
                             </b-col>
                         </b-row>
                         <b-row>
-                            <b-col lg="6" sm="12">
+                            <b-col :lg="6" sm="12">
                                 <!-- XML-Space -->
                                 <b-form-group label-class="form-label t3js-formengine-label py-0" content-cols-lg="12" content-cols-sm label-cols="12"
                                 >
@@ -71,7 +71,7 @@
 
                             </b-col>
                             <!-- Is approved -->
-                            <b-col lg="6" sm="12">
+                            <b-col v-if="!isDefault" lg="6" sm="12">
                                 <b-form-group label-class="form-label t3js-formengine-label py-0" content-cols-lg="12" content-cols-sm label-cols="12">
                                     <template #label>
                                         <small>
