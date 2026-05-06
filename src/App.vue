@@ -214,6 +214,14 @@ export default {
     z-index: 999;
 }
 
+.form-row {
+    gap: 0;
+}
+
+.b-form-tag-remove {
+    background: var(--typo3-state-yellow-focus-bg);
+}
+
 // Disable annoying text-selection on mouse move
 .tooltip {
     pointer-events: none;
