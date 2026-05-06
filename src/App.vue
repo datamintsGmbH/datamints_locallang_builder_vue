@@ -216,6 +216,7 @@ export default {
 
 .form-row {
     gap: 0;
+    align-items: start;
 }
 
 .b-form-tag-remove {
