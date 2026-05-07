@@ -11,6 +11,7 @@ const defaultConfig = {
   gitUrl: "https://github.com/datamintsGmbH/datamints_locallang_builder",
   documentationUrl: "https://github.com/datamintsGmbH/datamints_locallang_builder",
   version: packageJson.version,
+  allowedExtensions: "",
   excludedExtensions: "",
   languageSvgTemplate: ""
 };
