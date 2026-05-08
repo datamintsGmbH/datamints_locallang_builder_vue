@@ -55,13 +55,16 @@ const mutations = {
   },
   DELETE_TRANSLATION_VALUE(state, payload) {
     // TODO trololol loopmess. Better use .filter() to find matches. Had no better idea as vue-noob
+    const deletedTranslationValueUid = parseInt(payload.return, 10);
     for (let extensionKey in state.extensions) {
       for (let locallangKey in state.extensions[extensionKey].locallangs) {
         for (let translationKey in state.extensions[extensionKey].locallangs[locallangKey].translationsArray) {
           for (let translationValueKey in state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues) {
-            if (state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues[translationValueKey].uid === payload.return) {
-              // Vue.set(state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues, state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues[payload.uid], payload);
-              delete state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues[translationValueKey];
+            if (state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues[translationValueKey].uid === deletedTranslationValueUid) {
+              Vue.delete(
+                state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.translationValues,
+                translationValueKey
+              );
               return;
             }
           }
@@ -72,11 +75,12 @@ const mutations = {
   },
   DELETE_TRANSLATION(state, payload) {
     // TODO trololol loopmess. Better use .filter() to find matches. Had no better idea as vue-noob
+    const deletedTranslationUid = parseInt(payload.return, 10);
     for (let extensionKey in state.extensions) {
       for (let locallangKey in state.extensions[extensionKey].locallangs) {
         for (let translationKey in state.extensions[extensionKey].locallangs[locallangKey].translationsArray) {
-          if (state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.uid === payload.return) {
-            delete state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey];
+          if (state.extensions[extensionKey].locallangs[locallangKey].translationsArray[translationKey].object.uid === deletedTranslationUid) {
+            state.extensions[extensionKey].locallangs[locallangKey].translationsArray.splice(parseInt(translationKey, 10), 1);
             return;
           }
         }
